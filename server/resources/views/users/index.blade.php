@@ -10,27 +10,6 @@
 
 @section('content')
 @include('header')
-<!-- モダール用ボタン -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">モーダルを表示する</button>
-<!-- モーダル部分始まり -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">タイトル</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">これは モーダルダイアログの本文です。</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                <button type="button" class="btn btn-primary">保存する</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- モーダル部分終わり -->
     <!-- 検索フォーム　-->
     <div class="col-sm-4" style="padding:20px 0; padding-left:0px;">
     <form class="form-inline" action="{{url('/users')}}">
@@ -68,8 +47,28 @@
                             <form action="{{ url('admin/users/'.$user->id.'/delete') }}" method="POST" name="delete_user">
                                 @csrf
                                 <input type="hidden" name="users">
-                                <div class="" onClick="delete_alert(event);return false;">
+
+                                <!-- DELETEボタン -->
+                                <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#delete_modal_{{$user->id}}" data-whatever="@president">
                                     <i class="fa fa-trash"></i>
+                                </a>
+                                <!-- モーダル -->
+                                <div class="modal fade" id="delete_modal_{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">削除確認</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">id = "{{$user->id}}"を削除！</div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                                                <button type="submit" class="btn btn-primary">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </td>
@@ -82,14 +81,5 @@
         {{ $users->links('pagination.default') }}
     </div>
 </div>
-<!-- <script>
-function delete_alert(e){
-   if(!window.confirm('本当に削除しますか？')){
-      window.alert('キャンセルされました'); 
-      return false;
-   }
-   document.deleteform.submit();
-};
-</script> -->
-
+@include('script')
 @endsection

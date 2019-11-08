@@ -13,6 +13,6 @@
         <footer>
             <!-- 省略 -->
         </footer>
-        @yield('script')
+            @yield('script')
     </body>
 </html>

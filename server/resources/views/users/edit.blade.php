@@ -59,4 +59,5 @@
     </div>
     {{ Form::close() }}
 </div>
+@include('script')
 @endsection

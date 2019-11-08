@@ -13,8 +13,12 @@
 
 Route::get('/', function () {
     // return view('test');
-    return view('welcome');
+    // return view('welcome');
     // return view('top');
+  Route::group(['middleware' => ['auth', 'can:admin-only']], function () {
+    // ユーザ一覧
+    Route::get('admin/users', 'UserController@index')->name('users.index');
+  });
 });
 // Route::resource('users', 'UserController');
 
