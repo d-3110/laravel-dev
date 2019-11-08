@@ -9,7 +9,6 @@
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"><!-- Loading Bootstrap -->
     <link href="/dist/css/flat-ui.min.css" rel="stylesheet"><!-- Loading Flat UI -->
     <link rel="shortcut icon" href="/dist/img/favicon.ico">
-    <link rel=”stylesheet” href=”https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css”>
     <!------ Include the above in your HEAD tag ---------->
 
     <!-- All the files that are required -->
