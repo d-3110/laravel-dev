@@ -12,42 +12,42 @@ class JobsTableSeeder extends Seeder
     public function run()
     {
         DB::table('jobs')->insert([
-            'name' => 'ceo',
+            'name' => 'ディレクター',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('jobs')->insert([
-            'name' => 'ga',
+            'name' => 'デザイナー',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('jobs')->insert([
-            'name' => 'hr',
+            'name' => 'フロントエンジニア',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('jobs')->insert([
-            'name' => 'nbdo',
+            'name' => 'バックエンドエンジニア',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('jobs')->insert([
-            'name' => 'sales',
+            'name' => 'インフラエンジニア',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('jobs')->insert([
-            'name' => 'planner',
+            'name' => '営業',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('jobs')->insert([
-            'name' => 'designer',
+            'name' => '事務',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('jobs')->insert([
-            'name' => 'engineer',
+            'name' => '役員',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);

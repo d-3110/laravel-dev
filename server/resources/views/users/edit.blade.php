@@ -1,6 +1,6 @@
 @php
     $title = __('Users');
-    $url = '/users/'. $user->id;
+    $url = 'admin/users/'. $user->id;
     $is_admin = (bool)$user->is_admin;
 @endphp
 

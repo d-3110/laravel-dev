@@ -29,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+        list($depts, $jobs) = User::getArraySelectBox();
+        return view('users.create', ['user' => $user, 'depts' => $depts, 'jobs' => $jobs]);
     }
 
     /**

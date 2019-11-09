@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     // テーブル名
-    protected $table = 'Profiles';
+    protected $table = 'profiles';
 
     // IDが自動増分されない場合
     // public $incrementing = false;

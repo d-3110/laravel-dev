@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'dept_id' => ['required', 'integer'],
             'job_id' => ['required', 'integer'],
-            'is_admin' => ['required', 'boolean'],
+            // 'is_admin' => ['required', 'boolean'],
         ]);
     }
 
@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'dept_id' => $data['dept_id'],
             'job_id' => $data['job_id'],
-            'is_admin' => $data['is_admin'],
+            'is_admin' => 0,
         ]);
     }
 }

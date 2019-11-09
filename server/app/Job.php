@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     // テーブル名
-    protected $table = 'Jobs';
+    protected $table = 'jobs';
 
     // 複数代入させない属性　主キー
     protected $guarded = array('id');

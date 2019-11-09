@@ -1,3 +1,7 @@
+@php
+    $url = route('register');
+@endphp
+
 @extends('layouts.template')
 
 @section('title','register')
@@ -7,7 +11,7 @@
     <div class="logo">register</div>
     <!-- Main Form -->
     <div class="login-form-1">
-        <form method="POST" action="{{ route('register') }}" id="register-form" class="text-left">
+        {{ Form::open(['url' => $url, 'method' => 'post', 'id' => 'register-form', 'class' => 'text-left']) }}
             @csrf
             <div class="login-form-main-message"></div>
             <div class="main-login-form">
@@ -44,11 +48,9 @@
                         <label for="reg_deptId" class="sr-only">{{ __('Dept ID') }}</label>
                         <select class="form-control form-select" name="dept_id" id="reg_deptId" onchange="changeColor(this)">
                             <option value="" style="display: none;">dept</option>
-                            <option value="1">ぶしょ1</option>
-                            <option value="2">ぶしょ2</option>
-                            <option value="3">ぶしょ3</option>
-                            <option value="4">ぶしょ4</option>
-                            <option value="5">ぶしょ5</option>
+                        @foreach ($jobs as $key => $job)
+                            <option value="{{$key}}">{{$job}}</option>
+                        @endforeach
                         </select>
                     </div>
                     <!-- 職種 -->
@@ -56,18 +58,13 @@
                         <label for="reg_jobId" class="sr-only">{{ __('Job ID') }}</label>
                         <select class="form-control form-select" name="job_id" id="reg_jobId" onchange="changeColor(this)">
                             <option value="" style="display: none;">job</option>
-                            <option value="1">じょぶ1</option>
-                            <option value="2">じょぶ2</option>
-                            <option value="3">じょぶ3</option>
-                            <option value="4">じょぶ4</option>
-                            <option value="5">じょぶ5</option>
-                            <option value="6">じょぶ6</option>
-                            <option value="7">じょぶ7</option>
-                            <option value="8">じょぶ8</option>
+                        @foreach ($depts as $key => $dept)
+                            <option value="{{$key}}">{{$dept}}</option>
+                        @endforeach
                         </select>
                     </div>
                     <!-- 権限 -->
-                    <div class="form-group">
+<!--                     <div class="form-group">
                         <div class="form-check form-check-inline form-radio">
                             <label for="reg_isAdmin" class="radio sr-only">
                               <input type="radio" data-toggle="radio" name="is_admin" value="0" data-radiocheck-toggle="radio" checked="" id="reg_isAdmin">
@@ -81,19 +78,19 @@
                             </label>
                             Admin
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
-                <button type="submit" class="login-button btn btn-primary"><i class="fa fa-_628"></i></button>
+                <button type="submit" class="login-button btn btn-primary"><i class="fa fa-chevron-right"></i></button>
 
             </div>
             <div class="etc-login-form">
                 <p>already have an account? <a href="#">login here</a></p>
             </div>
-        </form>
+        {{ Form::close() }}
     </div>
-    <!-- end:Main Form -->
 </div>
+@include('script')
 <script>
 // selectで選択されたら文字色を変える
 function changeColor(obj){

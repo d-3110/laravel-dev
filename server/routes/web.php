@@ -17,7 +17,7 @@ Route::get('/', function () {
     // return view('top');
   Route::group(['middleware' => ['auth', 'can:admin-only']], function () {
     // ユーザ一覧
-    Route::get('admin/users', 'UserController@index')->name('users.index');
+    Route::get('admin/users', 'Admin\UserController@index')->name('users.index');
   });
 });
 // Route::resource('users', 'UserController');
@@ -25,25 +25,29 @@ Route::get('/', function () {
 
 // 一般ユーザ
 Route::group(['middleware' => ['auth', 'can:all-user']], function () {
-
+  // ユーザ一覧
+  Route::get('/users', 'UserController@index')->name('users.index');
 });
+
+/****************************************************************************/
+
 
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:admin-only']], function () {
 
   // ユーザ一覧
-  Route::get('admin/users', 'UserController@index')->name('users.index');
+  Route::get('admin/users', 'Admin\UserController@index')->name('admin.users.index');
 
   // ユーザ登録
-  Route::get('admin/users/regist', 'UserController@create')->name('users.create');
-  Route::post('admin/users/regist', 'UserController@store')->name('users.store');
+  Route::get('admin/users/regist', 'Admin\UserController@create')->name('admin.users.create');
+  Route::post('admin/users/regist', 'Admin\UserController@store')->name('admin.users.store');
 
   // ユーザ編集
-  Route::get('admin/users/{id}/edit', 'UserController@edit')->name('users.edit');
-  Route::match(['PUT','PATCH'], 'admin/users/{id}/', 'UserController@update')->name('users.update');
+  Route::get('admin/users/{id}/edit', 'Admin\UserController@edit')->name('admin.users.edit');
+  Route::match(['PUT','PATCH'], 'admin/users/{id}/', 'Admin\UserController@update')->name('admin.users.update');
 
   // ユーザ削除
-  Route::post('admin/users/{id}/delete', 'UserController@destroy')->name('users.destroy');
+  Route::post('admin/users/{id}/delete', 'Admin\UserController@destroy')->name('admin.users.destroy');
 });
 
 

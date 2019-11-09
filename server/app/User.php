@@ -11,7 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     // テーブル名
-    protected $table = 'Users';
+    protected $table = 'users';
 
     // IDが自動増分されない場合
     // public $incrementing = false;

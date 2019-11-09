@@ -12,27 +12,27 @@ class DeptsTableSeeder extends Seeder
     public function run()
     {
         DB::table('depts')->insert([
-            'name' => '役員',
+            'name' => '部署　壱',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('depts')->insert([
-            'name' => 'SES',
+            'name' => '部署　弐',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('depts')->insert([
-            'name' => 'WEBクリ',
+            'name' => '部署　参',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('depts')->insert([
-            'name' => 'エンマネ',
+            'name' => '部署　肆',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('depts')->insert([
-            'name' => 'その他',
+            'name' => '部署　伍',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);

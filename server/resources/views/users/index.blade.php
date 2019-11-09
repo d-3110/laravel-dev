@@ -12,7 +12,7 @@
 @include('header')
     <!-- 検索フォーム　-->
     <div class="col-sm-4" style="padding:20px 0; padding-left:0px;">
-    <form class="form-inline" action="{{url('/users')}}">
+    <form class="form-inline" action="{{url('admin/users')}}">
         @csrf
       <div class="form-group">
       <input type="text" name="keyword" value="{{$keyword}}" class="form-control" placeholder="name or email">
@@ -62,7 +62,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">id = "{{$user->id}}"を削除！</div>
+                                            <div class="modal-body">{{optional($user->profile)->name}}を削除！</div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                                 <button type="submit" class="btn btn-primary">OK</button>
