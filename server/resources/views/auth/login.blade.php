@@ -2,6 +2,9 @@
 
 @section('title','register')
 @section('description','ディスクリプション')
+@section('page_style')
+    <link rel="stylesheet" href="{{ asset('/css/login.css') }}">
+@stop
 @include('head')
 <!-- LOGIN FORM -->
 <div class="text-center" style="padding:50px 0">
