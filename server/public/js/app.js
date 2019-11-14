@@ -1854,20 +1854,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  // bladeからデータを受け取り
+  props: ["profile"],
   data: function data() {
     return {
-      user: []
+      name: this.profile.name,
+      gender: this.profile.gender,
+      birthday: this.profile.gender,
+      favorite_food: this.profile.favorite_food,
+      hated_food: this.profile.hated_food,
+      //postで送信するためのリクエストデータ初期化 編集で使う
+      request: {
+        name: ''
+      }
     };
   },
-  mounted: function mounted() {
-    var self = this;
-    var url = '/api/profiles/1';
-    axios.get(url).then(function (res) {
-      self.user = res.data;
-    })["catch"](function (error) {
-      console.log('ERROR!! occurred in Backend.');
-    });
+  methods: {
+    // 編集処理
+    edit: function edit() {
+      // リクエストデータに入力値を代入
+      this.request.name = this.name; // userのidを指定してpatchで送信(patchも出来るようです)
+
+      axios.patch('api/profile/' + this.user.id, this.request).then(function (res) {
+        console.log(res.data);
+      });
+    }
   }
 });
 
@@ -37190,7 +37205,13 @@ var render = function() {
           _c("div", { staticClass: "card-body" }, [
             _vm._v(
               "\n                    " +
-                _vm._s(_vm.user.name) +
+                _vm._s(_vm.name) +
+                "\n                    " +
+                _vm._s(_vm.gender) +
+                "\n                    " +
+                _vm._s(_vm.birthday) +
+                "\n                    " +
+                _vm._s(_vm.favorite_food) +
                 "\n                "
             )
           ])

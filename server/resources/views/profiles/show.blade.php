@@ -14,19 +14,8 @@
 
 @section('content')
 @include('header')
-
-<!-- 検索フォーム　-->
-<div class="col-sm-4" style="padding:20px 0; padding-left:0px;">
-  <form class="form-inline" action="{{url('admin/users')}}">
-      @csrf
-    <div class="form-group">
-    <input type="text" name="keyword" value="{{$keyword}}" class="form-control" placeholder="name or email">
-    </div>
-    <button type="submit" class="login-button btn btn-info"><i class="fa fa-search"></i></button>
-  </form>
-</div>
 <div id="app">
-  <show-profile></show-profile>
+  <show-profile v-bind:profile="{{ $profile }}"></show-profile>
 </div>
 @section('page_script')
     <!-- <script src="{{ asset('js/publicUserIndex.js') }}" defer></script> -->

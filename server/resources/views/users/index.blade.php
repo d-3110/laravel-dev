@@ -26,7 +26,6 @@
   </form>
 </div>
 <div id="app">
-  <show-profile></show-profile>
   <div class="card-deck">
     <div class="row">
     @foreach($users as $user)
