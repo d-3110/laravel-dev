@@ -55,10 +55,8 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $profile = Profile::find($id);
-        $profile->title = $request->title;
-        $profile->body = $request->body;
-        $profile->save();
-        return redirect("api/profiles/".$id);
+        $profile->fill($request->all())->save();
+        // return redirect("api/profiles/".$id);
     }
 
     /**

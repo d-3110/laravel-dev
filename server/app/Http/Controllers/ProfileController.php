@@ -26,11 +26,10 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $profile = new Profile;
-        $profile->title = $request->title;
-        $profile->body = $request->body;
-        $profile->save();
-        return redirect('api/profiles');
+        var_dump($request);
+        $profile = Profile::find($id);
+        $profile->fill($request->all())->save();
+        return redirect("api/profiles/".$id);
     }
 
     /**
@@ -53,10 +52,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        var_dump($request);
         $profile = Profile::find($id);
-        $profile->title = $request->title;
-        $profile->body = $request->body;
-        $profile->save();
+        $profile->fill($request->all())->save();
         return redirect("api/profiles/".$id);
     }
 

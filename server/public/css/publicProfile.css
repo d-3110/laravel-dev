@@ -1,0 +1,39 @@
+.profile_card {
+  max-width: 600px;
+  min-height: 745px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.profile_spiner {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+}
+.loading {
+  border: none;
+}
+
+.profile_card > .btn_group {
+  text-align: right;
+
+}
+
+button.edit_btn {
+  margin-right: 20px;
+  padding: 10px 0;
+  width: 50px;
+  height: 50px;
+  margin-top: 0px;
+  border-radius: 50%;
+}
+
+.no-gutters > div.profile_info {
+  padding: 1.25rem;
+}
+
+.profile_img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%; 
+}
