@@ -55,7 +55,16 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $profile = Profile::find($id);
-        $profile->fill($request->all())->save();
+        // 全カラムを対象
+        $profile->fill($request->all());
+
+        if($request->change_img) {
+          // 画像が変更されていた場合画像を保存
+          $request->profile_img->store('public');
+          // 画像ファイル名で上書き
+          $profile->img_file = str_replace('public/', '', $path);
+        }
+        $profile->save();
         // return redirect("api/profiles/".$id);
     }
 
