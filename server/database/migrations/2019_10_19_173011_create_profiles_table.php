@@ -22,6 +22,7 @@ class CreateProfilesTable extends Migration
             $table->date('birthday');
             $table->string('favorite_food');
             $table->string('hated_food');
+            $table->string('img_file');
             $table->integer('personality_1');
             $table->integer('personality_2');
             $table->integer('personality_3');

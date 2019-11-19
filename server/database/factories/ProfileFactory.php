@@ -14,6 +14,7 @@ $factory->define(Profile::class, function (Faker $faker) {
         'birthday' => $faker->dateTimeThisCentury,
         'favorite_food' => $faker->word,
         'hated_food' => $faker->word,
+        'img_file' => 'mysteryman.png',
         'personality_1' => $faker->numberBetween($min = 1, $max = 5),
         'personality_2' => $faker->numberBetween($min = 1, $max = 5),
         'personality_3' => $faker->numberBetween($min = 1, $max = 5),

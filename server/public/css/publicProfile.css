@@ -37,3 +37,30 @@ button.edit_btn {
   height: 160px;
   border-radius: 50%; 
 }
+
+.img_box {
+  position: relative;
+}
+
+.photo_icon {
+  position: absolute;
+  top: 20%;
+  left: 36%;
+  font-size: 250%;
+}
+
+.gray_out {
+  opacity: 0.3;
+}
+
+label {
+  display: inline-block;
+}
+
+label img {
+  pointer-events: none;
+}
+
+input[type=file] {
+  display: none;
+}
