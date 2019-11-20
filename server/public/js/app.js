@@ -2013,26 +2013,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2052,33 +2032,23 @@ __webpack_require__.r(__webpack_exports__);
         birthday: this.profile.birthday,
         favorite_food: this.profile.favorite_food,
         hated_food: this.profile.hated_food,
-        img_file: this.profile.img_file,
-        // アップロード画像ファイル名
         personality_1: this.profile.personality_1,
         personality_2: this.profile.personality_2,
         personality_3: this.profile.personality_3,
         personality_4: this.profile.personality_4,
         personality_5: this.profile.personality_5,
-        personality_6: this.profile.personality_6,
-        uploaded_img: '',
-        // アップロードファイルそのもの
-        change_img: false // 画像を変えようとしていたらtrue
-
+        personality_6: this.profile.personality_6
       },
       gender: '',
       editFlg: false,
       updated: false,
       is_woman: false,
-      loading: false,
-      old_img: '' // 現在のプロフィール画像
-
+      loading: false
     };
   },
   mounted: function mounted() {
     // 性別の翻訳値を設定
-    this.gender = this.setGender(this.profile.gender); // 現在のプロフィール画像を退避
-
-    this.old_img = this.profile.img_file;
+    this.gender = this.setGender(this.profile.gender);
   },
   methods: {
     // 性別設定
@@ -2102,28 +2072,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.gender = _this.setGender(_this.req.gender);
         _this.loading = false;
       });
-    },
-    // 画像選択
-    fileSelected: function fileSelected(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      this.previewImage(files[0]);
-      this.req.img_file = files[0].name;
-    },
-    // プレビュー表示
-    previewImage: function previewImage(file) {
-      var _this2 = this;
-
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        _this2.req.uploaded_img = e.target.result;
-      };
-
-      reader.readAsDataURL(file);
-    },
-    // ファイル削除
-    remove: function remove() {
-      this.req.uploaded_img = false;
     }
   }
 });
@@ -71513,76 +71461,10 @@ var render = function() {
       !_vm.loading
         ? _c("form", { staticClass: "row no-gutters" }, [
             _c("div", { staticClass: "col-md-4 profile_info" }, [
-              !_vm.editFlg
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "img_box",
-                      class: { gray_out: _vm.editFlg }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "card-img-top profile_img",
-                        attrs: { src: /storage/ + _vm.req.img_file }
-                      })
-                    ]
-                  )
-                : _c(
-                    "div",
-                    {
-                      staticClass: "img_box",
-                      class: { gray_out: _vm.editFlg }
-                    },
-                    [
-                      _c("label", [
-                        !_vm.req.uploaded_img
-                          ? _c("img", {
-                              staticClass: "card-img-top profile_img",
-                              attrs: {
-                                src: /storage/ + _vm.old_img,
-                                alt: "profile_img"
-                              }
-                            })
-                          : _c("img", {
-                              staticClass: "card-img-top profile_img",
-                              attrs: {
-                                src: _vm.req.uploaded_img,
-                                alt: "profile_img"
-                              }
-                            }),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: {
-                            type: "file",
-                            name: "profile_img",
-                            accept: "image/png, image/jpeg"
-                          },
-                          on: { change: _vm.fileSelected }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.req.uploaded_img,
-                              expression: "req.uploaded_img"
-                            }
-                          ]
-                        },
-                        [
-                          _c("i", { on: { click: _vm.remove } }, [
-                            _vm._v("close")
-                          ])
-                        ]
-                      )
-                    ]
-                  ),
+              _c("img", {
+                staticClass: "card-img-top profile_img",
+                attrs: { src: "/storage/mysteryman.png", alt: "profile_img" }
+              }),
               _vm._v(" "),
               !_vm.editFlg
                 ? _c("dl", [
@@ -72026,16 +71908,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "photo_icon" }, [
-      _c("i", { staticClass: "fui fui-photo" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
