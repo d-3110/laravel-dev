@@ -13,8 +13,8 @@ services:
     ports:
     - 10080:80
     volumes:
-    - ./server:/var/www
-    - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    - ./server:/var/www:cached
+    - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
     depends_on:
     - php
 
@@ -29,8 +29,8 @@ services:
       TZ: 'Asia/Tokyo'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-    - ./docker/db/data:/var/lib/mysql
-    - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
-    - ./docker/db/sql:/docker-entrypoint-initdb.d
+    - ./docker/db/data:/var/lib/mysql:cached
+    - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf:cached
+    - ./docker/db/sql:/docker-entrypoint-initdb.d:cached
     ports:
     - 13306:3306
