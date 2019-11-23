@@ -2296,6 +2296,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2313,7 +2322,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       // APIでpostするためのreq
       req: {
-        id: this.profile.id,
         name: this.profile.name,
         gender: this.profile.gender,
         birthday: this.profile.birthday,
@@ -2326,13 +2334,15 @@ __webpack_require__.r(__webpack_exports__);
         personality_5: this.profile.personality_5,
         personality_6: this.profile.personality_6
       },
+      user_id: this.profile.user_id,
       img_file: this.profile.img_file,
       // アップロード画像ファイル名
       gender: '',
       edit_flg: false,
       updated: false,
-      is_woman: false,
-      loading: false
+      loading: false,
+      errors: [],
+      error_flg: false
     };
   },
   mounted: function mounted() {
@@ -2359,6 +2369,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.updated = true; // 更新後も翻訳値を設定
 
         _this.gender = _this.setGender(_this.req.gender);
+        _this.loading = false;
+      })["catch"](function (err) {
+        _this.errors = err.response.data.errors;
+        _this.error_flg = true;
         _this.loading = false;
       });
     }
@@ -72137,6 +72151,30 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
+      _vm.error_flg
+        ? _c(
+            "div",
+            { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.errors, function(error) {
+                  return _c(
+                    "li",
+                    _vm._l(error, function(msg) {
+                      return _c("p", [
+                        _vm._v("\n          " + _vm._s(msg) + "\n        ")
+                      ])
+                    }),
+                    0
+                  )
+                }),
+                0
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm.loading
         ? _c(
             "div",
@@ -72185,7 +72223,7 @@ var render = function() {
                       _vm._m(0)
                     ]),
                 _vm._v(" "),
-                _c("drop-img", { attrs: { user_id: _vm.req.id } }),
+                _c("drop-img", { attrs: { user_id: _vm.user_id } }),
                 _vm._v(" "),
                 !_vm.edit_flg
                   ? _c("dl", [

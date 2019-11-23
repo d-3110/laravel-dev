@@ -4,6 +4,15 @@
     <div v-if="updated" class="alert alert-primary" role="alert">
       更新しました
     </div>
+    <div v-if="error_flg" class="alert alert-danger" role="alert">
+      <ul>
+        <li v-for="error in errors">
+          <p v-for="msg in error">
+            {{msg}}
+          </p>
+        </li>
+      </ul>
+    </div>
     <!-- ロード画面 -->
     <div v-if="loading" class="spinner-border text-primary profile_spiner" role="status">
       <span class="sr-only">Loading...</span>
@@ -25,7 +34,7 @@
           </div>
         </div>
         <!-- モーダル -->
-        <drop-img :user_id="req.id"></drop-img>
+        <drop-img :user_id="user_id"></drop-img>
 
         <!-- 左側通常 -->
         <dl v-if="!edit_flg">
@@ -144,7 +153,6 @@ export default {
     return {
       // APIでpostするためのreq
       req: {
-        id: this.profile.id,
         name: this.profile.name,
         gender: this.profile.gender,
         birthday: this.profile.birthday,
@@ -157,12 +165,14 @@ export default {
         personality_5: this.profile.personality_5,
         personality_6: this.profile.personality_6,
       },
+      user_id: this.profile.user_id,
       img_file: this.profile.img_file, // アップロード画像ファイル名
       gender: '',
       edit_flg: false,
       updated: false,
-      is_woman: false,
       loading: false,
+      errors: [],
+      error_flg: false,
     }
   },
 
@@ -189,6 +199,11 @@ export default {
           // 更新後も翻訳値を設定
           this.gender = this.setGender(this.req.gender)
           this.loading = false
+      })
+      .catch(err => {
+        this.errors = err.response.data.errors;
+        this.error_flg = true
+        this.loading = false
       });
     },
   }

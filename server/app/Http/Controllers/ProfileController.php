@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
 use App\Profile;
 
 class ProfileController extends Controller
@@ -14,8 +15,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profiles = Profile::all();
-        return $profiles;
+        $user = Auth::user();
+        $profile = Profile::where('user_id',$user->id)->first();
+        return view('profiles.show', ['profile' => $profile]);
     }
 
     /**
@@ -26,10 +28,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request);
-        $profile = Profile::find($id);
-        $profile->fill($request->all())->save();
-        return redirect("api/profiles/".$id);
+        //
     }
 
     /**

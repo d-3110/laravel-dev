@@ -55,6 +55,19 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name'          => 'required|string',
+            'birthday'      => 'required|date_format:"Y-m-d"',
+            'gender'        => 'required|boolean',
+            'favorite_food' => 'required|string',
+            'hated_food'    => 'required|string',
+            'personality_1' => 'required|integer|between:1,5',
+            'personality_2' => 'required|integer|between:1,5',
+            'personality_3' => 'required|integer|between:1,5',
+            'personality_4' => 'required|integer|between:1,5',
+            'personality_5' => 'required|integer|between:1,5',
+            'personality_6' => 'required|integer|between:1,5',
+        ]);
         $profile = Profile::find($id);
         // 全カラムを対象
         $profile->fill($request->all());

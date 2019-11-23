@@ -27,7 +27,8 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth', 'can:all-user']], function () {
   // ユーザ一覧
   Route::get('/users', 'UserController@index')->name('users.index');
-  Route::get('/profiles/{id}', 'ProfileController@show')->name('users.index');
+  Route::get('/profiles/{id}', 'ProfileController@show')->name('users.show');
+  Route::get('/mypage/', 'ProfileController@index')->name('users.index');
 });
 
 /****************************************************************************/
