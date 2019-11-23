@@ -2123,24 +2123,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   // チャートコンポーネント
@@ -2201,10 +2183,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.gender = _this.setGender(_this.req.gender);
         _this.loading = false;
       });
-    },
-    // プロフィール画像を更新
-    updateImg: function updateImg(file_path) {
-      this.img_file = file_path;
     }
   }
 });
@@ -71719,150 +71697,37 @@ var render = function() {
       _vm._v(" "),
       !_vm.loading
         ? _c("form", { staticClass: "row no-gutters" }, [
-            _c(
-              "div",
-              { staticClass: "col-md-4 profile_info" },
-              [
-                !_vm.editFlg
-                  ? _c("div", { staticClass: "img_box" }, [
-                      _c("img", {
-                        staticClass: "card-img-top profile_img",
-                        attrs: { src: _vm.img_file }
-                      })
-                    ])
-                  : _c("div", { staticClass: "img_box" }, [
+            _c("div", { staticClass: "col-md-4 profile_info" }, [
+              _c("img", {
+                staticClass: "card-img-top profile_img",
+                attrs: { src: "/storage/mysteryman.png", alt: "profile_img" }
+              }),
+              _vm._v(" "),
+              !_vm.editFlg
+                ? _c("dl", [
+                    _c("dt", [_vm._v("性別")]),
+                    _vm._v(" "),
+                    _c("dd", [_vm._v(_vm._s(_vm.gender))]),
+                    _vm._v(" "),
+                    _c("dt", [_vm._v("生年月日")]),
+                    _vm._v(" "),
+                    _c("dd", [_vm._v(_vm._s(_vm.req.birthday))]),
+                    _vm._v(" "),
+                    _c("dt", [_vm._v("好きな食べ物")]),
+                    _vm._v(" "),
+                    _c("dd", [_vm._v(_vm._s(_vm.req.favorite_food))]),
+                    _vm._v(" "),
+                    _c("dt", [_vm._v("嫌いな食べ物")]),
+                    _vm._v(" "),
+                    _c("dd", [_vm._v(_vm._s(_vm.req.hated_food))])
+                  ])
+                : _c("dl", [
+                    _c("dt", [_vm._v("性別")]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "form-group" }, [
                       _c(
-                        "div",
+                        "select",
                         {
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#img_modal",
-                            "data-whatever": "@president"
-                          }
-                        },
-                        [
-                          _c("img", {
-                            staticClass: "card-img-top profile_img gray_out",
-                            attrs: { src: _vm.img_file }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm._m(0)
-                    ]),
-                _vm._v(" "),
-                _c("drop-img", {
-                  attrs: { user_id: _vm.req.id },
-                  on: { update_img_file: _vm.updateImg }
-                }),
-                _vm._v(" "),
-                !_vm.editFlg
-                  ? _c("dl", [
-                      _c("dt", [_vm._v("性別")]),
-                      _vm._v(" "),
-                      _c("dd", [_vm._v(_vm._s(_vm.gender))]),
-                      _vm._v(" "),
-                      _c("dt", [_vm._v("生年月日")]),
-                      _vm._v(" "),
-                      _c("dd", [_vm._v(_vm._s(_vm.req.birthday))]),
-                      _vm._v(" "),
-                      _c("dt", [_vm._v("好きな食べ物")]),
-                      _vm._v(" "),
-                      _c("dd", [_vm._v(_vm._s(_vm.req.favorite_food))]),
-                      _vm._v(" "),
-                      _c("dt", [_vm._v("嫌いな食べ物")]),
-                      _vm._v(" "),
-                      _c("dd", [_vm._v(_vm._s(_vm.req.hated_food))])
-                    ])
-                  : _c("dl", [
-                      _c("dt", [_vm._v("性別")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "form-group" }, [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.req.gender,
-                                expression: "req.gender"
-                              }
-                            ],
-                            staticClass: "form-control form-select",
-                            attrs: { type: "number", name: "gender" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.req,
-                                  "gender",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              {
-                                attrs: { value: "0" },
-                                domProps: { selected: !_vm.is_woman }
-                              },
-                              [_vm._v("男")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              {
-                                attrs: { value: "1" },
-                                domProps: { selected: _vm.is_woman }
-                              },
-                              [_vm._v("女")]
-                            )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", [_vm._v("生年月日")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "form-group" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.req.birthday,
-                              expression: "req.birthday"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "gender" },
-                          domProps: { value: _vm.req.birthday },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.req, "birthday", $event.target.value)
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", [_vm._v("好きな食べ物")]),
-                      _vm._v(" "),
-                      _c("dd", [
-                        _c("input", {
                           directives: [
                             {
                               name: "model",
@@ -72204,16 +72069,6 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "edit_photo" }, [
-      _c("i", { staticClass: "fui fui-plus" })
-    ])
-  }
-]
 render._withStripped = true
 
 
