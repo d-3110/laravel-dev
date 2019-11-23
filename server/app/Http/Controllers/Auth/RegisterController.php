@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Profile;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -65,12 +66,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'dept_id' => $data['dept_id'],
             'job_id' => $data['job_id'],
             'is_admin' => 0,
         ]);
+
+        // profileに空レコード追加
+        Profile::create(['user_id' => $user->id,'name' => '名無し']);
+        return $user;
     }
 }

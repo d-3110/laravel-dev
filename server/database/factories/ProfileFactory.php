@@ -21,11 +21,11 @@ $factory->define(Profile::class, function (Faker $faker) {
         'personality_4' => $faker->numberBetween($min = 1, $max = 5),
         'personality_5' => $faker->numberBetween($min = 1, $max = 5),
         'personality_6' => $faker->numberBetween($min = 1, $max = 5),
-        'age_1' => $faker->numberBetween($min = 1, $max = 5),
-        'age_2' => $faker->numberBetween($min = 1, $max = 5),
-        'age_3' => $faker->numberBetween($min = 1, $max = 5),
-        'age_4' => $faker->numberBetween($min = 1, $max = 5),
-        'age_5' => $faker->numberBetween($min = 1, $max = 5),
-        'age_6' => $faker->numberBetween($min = 1, $max = 5),
+        // 'age_1' => $faker->numberBetween($min = 1, $max = 5),
+        // 'age_2' => $faker->numberBetween($min = 1, $max = 5),
+        // 'age_3' => $faker->numberBetween($min = 1, $max = 5),
+        // 'age_4' => $faker->numberBetween($min = 1, $max = 5),
+        // 'age_5' => $faker->numberBetween($min = 1, $max = 5),
+        // 'age_6' => $faker->numberBetween($min = 1, $max = 5),
     ];
 });

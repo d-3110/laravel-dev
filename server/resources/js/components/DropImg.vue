@@ -82,13 +82,9 @@ export default {
             const formData = new FormData()
             formData.append('file',this.img_file)
             axios.post('/api/profiles/fileupload/' + this.user_id, formData).then(response =>{
-                
                 // 親コンポーネントの画像を変更
-                // トリガを設定
-                this.file_path = 
-                '/storage/profiles/' + this.user_id + '/' +this.img_file.name
-                this.$emit('update_img_file', this.file_path)
-
+                this.file_path = '/storage/profiles/' + this.user_id + '/' +this.img_file.name
+                this.$parent.img_file = this.file_path
             });
         }
     }

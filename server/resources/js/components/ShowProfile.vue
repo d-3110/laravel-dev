@@ -9,10 +9,10 @@
       <span class="sr-only">Loading...</span>
     </div>
     <form v-if="!loading" class="row no-gutters">
-      <div class="col-md-4 profile_info">
+      <div class="profile_info" :class="[ edit_flg === true ? 'col-md-7' : 'col-md-5' ]">
 
         <!-- 画像表示エリア -->
-        <div v-if="!editFlg"class="img_box">
+        <div v-if="!edit_flg"class="img_box">
           <img class="card-img-top profile_img" :src="img_file"/>
         </div>
         <!-- 画像編集エリア -->
@@ -25,10 +25,10 @@
           </div>
         </div>
         <!-- モーダル -->
-        <drop-img @update_img_file="updateImg" :user_id="req.id"></drop-img>
+        <drop-img :user_id="req.id"></drop-img>
 
         <!-- 左側通常 -->
-        <dl v-if="!editFlg">
+        <dl v-if="!edit_flg">
           <dt>性別</dt>
           <dd>{{ gender }}</dd>
           <dt>生年月日</dt>
@@ -42,14 +42,11 @@
         <dl v-else>
           <dt>性別</dt>
           <dd class="form-group">
-            <select type="number" class="form-control form-select" name="gender" v-model="req.gender">
-              <option value="0" :selected="!is_woman">男</option>
-              <option value="1" :selected="is_woman">女</option>
-            </select>
+            <gender-select :gender="req.gender" />
           </dd>
           <dt>生年月日</dt>
           <dd class="form-group">
-            <input type="text" name="gender" class="form-control" v-model="req.birthday">
+            <birth-day-select :birth_day="req.birthday" />
           </dd>
           <dt>好きな食べ物</dt>
           <dd>
@@ -63,7 +60,7 @@
       </div><!-- 左側END -->
 
       <!-- 右側通常(レーダーチャート) -->
-      <div v-if="!editFlg" class="col-md-7">
+      <div v-if="!edit_flg" :class="[ edit_flg === true ? 'col-md-5' : 'col-md-7' ]">
         <div class="card-body">
           <div>
             <h5 class="card-title">
@@ -74,7 +71,7 @@
         </div>
       </div>
       <!-- 右側編集エリア -->
-      <div v-else class="col-md-7">
+      <div v-else class="col-md-5">
         <div class="card-body">
           <dl>
             <dt>なまえ</dt>
@@ -83,35 +80,35 @@
             </dd>
             <dt>ＨＰ</dt>
             <dd class="form-group">
-              <input type="text" name="personality_1" class="form-control" v-model="req.personality_1">
+              <param-select :param="req.personality_1" :num="1" />
             </dd>
             <dt>ＭＰ</dt>
             <dd class="form-group">
-              <input type="text" name="personality_2" class="form-control" v-model="req.personality_2">
+              <param-select :param="req.personality_2" :num="2" />
             </dd>
             <dt>こうげき</dt>
             <dd class="form-group">
-              <input type="text" name="personality_3" class="form-control" v-model="req.personality_3">
+              <param-select :param="req.personality_3" :num="3" />
             </dd>
             <dt>しゅび</dt>
             <dd class="form-group">
-              <input type="text" name="personality_4" class="form-control" v-model="req.personality_4">
+              <param-select :param="req.personality_4" :num="4" />
             </dd>
             <dt>すばやさ</dt>
             <dd class="form-group">
-              <input type="text" name="personality_5" class="form-control" v-model="req.personality_5">
+              <param-select :param="req.personality_5" :num="5" />
             </dd>
             <dt>かしこさ</dt>
             <dd class="form-group">
-              <input type="text" name="personality_6" class="form-control" v-model="req.personality_6">
+              <param-select :param="req.personality_6" :num="6" />
             </dd>
           </dl>
         </div>
       </div>
     </form><!-- wrrap END -->
     <!-- ボタンエリア　-->
-    <div v-if="!editFlg && !loading" class="form-group btn_group">
-      <button type="button" class="btn btn-primary edit_btn" @click="(editFlg = true)">
+    <div v-if="!edit_flg && !loading" class="form-group btn_group">
+      <button type="button" class="btn btn-primary edit_btn" @click="(edit_flg = true)">
         <i class="fa fa-pencil"></i>
       </button>
     </div>
@@ -119,7 +116,7 @@
       <button type="button" class="btn btn-info edit_btn" @click="update">
         <i class="fui fui-check"></i>
       </button>
-      <button type="button" class="btn btn-danger edit_btn" @click="(editFlg = false)">
+      <button type="button" class="btn btn-danger edit_btn" @click="(edit_flg = false)">
         <i class="fui fui-cross"></i>
       </button>
     </div>
@@ -130,6 +127,9 @@
 import Vue from 'vue'
 import ProfileChart from './ProfileChart'
 import DropImg from './DropImg'
+import ParamSelect from './ParamSelect'
+import BirthDaySelect from './BirthDaySelect'
+import GenderSelect from './GenderSelect'
 
 
 export default {
@@ -139,7 +139,7 @@ export default {
       ProfileChart
   },
   // bladeからデータを受け取り
-  props:["profile"],
+  props:['profile'],
   data() {
     return {
       // APIでpostするためのreq
@@ -159,7 +159,7 @@ export default {
       },
       img_file: this.profile.img_file, // アップロード画像ファイル名
       gender: '',
-      editFlg: false,
+      edit_flg: false,
       updated: false,
       is_woman: false,
       loading: false,
@@ -184,20 +184,19 @@ export default {
     update() {
       this.loading = true
       axios.patch('/api/profiles/' + this.profile.id, this.req).then(res => {
-          this.editFlg = false
+          this.edit_flg = false
           this.updated = true
           // 更新後も翻訳値を設定
           this.gender = this.setGender(this.req.gender)
           this.loading = false
       });
     },
-    // プロフィール画像を更新
-    updateImg(file_path) {
-      this.img_file = file_path
-    }
   }
 }
 Vue.component('profile-chart', ProfileChart)
 Vue.component('drop-img', DropImg)
+Vue.component('param-select', ParamSelect)
+Vue.component('birth-day-select', BirthDaySelect)
+Vue.component('gender-select', GenderSelect)
 
 </script>
