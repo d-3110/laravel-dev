@@ -8,7 +8,7 @@
 @section('title','public_user_index')
 @section('description','ディスクリプション')
 @section('page_style')
-    <link rel="stylesheet" href="{{ asset('/css/publicProfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/showProfile.css') }}">
 @stop
 @include('head')
 

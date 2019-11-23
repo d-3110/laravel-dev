@@ -19,4 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['api']], function(){
   Route::resource('profiles', 'Api\ProfileController', ['except' => ['create', 'edit']]);
+
+  // プロフィール画像保存
+  Route::post('profiles/fileupload/{profile}', 'Api\ProfileController@fileUpload');
 });
