@@ -42,10 +42,12 @@ button.edit_btn {
   position: relative;
 }
 
-.photo_icon {
+.edit_photo {
   position: absolute;
-  top: 20%;
-  left: 36%;
+  top: 45px;
+  left: 58px;
+  opacity: 0.5;
+  pointer-events: none;
   font-size: 250%;
 }
 
@@ -53,14 +55,17 @@ button.edit_btn {
   opacity: 0.3;
 }
 
-label {
-  display: inline-block;
+.drop_area {
+  border: dotted 3px lightgray;
+  margin: 10px;
+  padding: 5px;
+}
+.drop {
+  text-align: center;
 }
 
-label img {
-  pointer-events: none;
-}
-
-input[type=file] {
-  display: none;
+.-drag {
+  border-color: #1abc9c;
+  color: #1abc9c;
+  background-color: rgba(26,188,156,0.3);
 }

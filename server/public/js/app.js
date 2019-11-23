@@ -1829,6 +1829,115 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DropImg.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DropImg.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user_id'],
+  data: function data() {
+    return {
+      isDrag: null,
+      img_file: '',
+      // 画像ファイル
+      file_path: '',
+      // 画像ファイルパス
+      preview_img: '',
+      up: false
+    };
+  },
+  methods: {
+    checkDrag: function checkDrag(event, key, status) {
+      if (status && event.dataTransfer.types == "text/plain") {
+        //ファイルではなく、html要素をドラッグしてきた時は処理を中止
+        return false;
+      }
+
+      this.isDrag = status ? key : null;
+    },
+    // 画像選択
+    fileSelected: function fileSelected(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      this.previewImage(files[0]);
+      this.img_file = files[0];
+    },
+    // プレビュー表示
+    previewImage: function previewImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.preview_img = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+      this.up = true;
+    },
+    // ファイルアップロード
+    fileUpload: function fileUpload() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append('file', this.img_file);
+      axios.post('/api/profiles/fileupload/' + this.user_id, formData).then(function (response) {
+        // 親コンポーネントの画像を変更
+        // トリガを設定
+        _this2.file_path = '/storage/profiles/' + _this2.user_id + '/' + _this2.img_file.name;
+
+        _this2.$emit('update_img_file', _this2.file_path);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileChart.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileChart.vue?vue&type=script&lang=js& ***!
@@ -1901,6 +2010,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ProfileChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileChart */ "./resources/js/components/ProfileChart.vue");
+/* harmony import */ var _DropImg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DropImg */ "./resources/js/components/DropImg.vue");
 //
 //
 //
@@ -2013,7 +2123,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   // チャートコンポーネント
@@ -2039,6 +2148,8 @@ __webpack_require__.r(__webpack_exports__);
         personality_5: this.profile.personality_5,
         personality_6: this.profile.personality_6
       },
+      img_file: this.profile.img_file,
+      // アップロード画像ファイル名
       gender: '',
       editFlg: false,
       updated: false,
@@ -2076,6 +2187,7 @@ __webpack_require__.r(__webpack_exports__);
   }
 });
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('profile-chart', _ProfileChart__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('drop-img', _DropImg__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 /***/ }),
 
@@ -71420,6 +71532,131 @@ var reactiveProp = {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DropImg.vue?vue&type=template&id=5b31b5b9&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DropImg.vue?vue&type=template&id=5b31b5b9& ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "img_modal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLabel",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c(
+            "div",
+            {
+              staticClass: "drop_area",
+              class: [{ "-drag": _vm.isDrag == "new" }],
+              on: {
+                dragover: function($event) {
+                  $event.preventDefault()
+                  return _vm.checkDrag($event, "new", true)
+                },
+                dragleave: function($event) {
+                  $event.preventDefault()
+                  return _vm.checkDrag($event, "new", false)
+                },
+                drop: function($event) {
+                  $event.preventDefault()
+                  return _vm.fileSelected($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "drop" }, [
+                _c("p", { staticClass: "drag-drop-info" }, [
+                  _vm._v("ここにファイルをドロップ")
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v("または")]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "btn btn-dark",
+                    attrs: { for: "corporation_file" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        ファイルを選択\n                    "
+                    ),
+                    _c("input", {
+                      staticClass: "drop__input",
+                      staticStyle: { display: "none" },
+                      attrs: { type: "file", id: "corporation_file" },
+                      on: { change: _vm.fileSelected }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "drop" }, [
+                _vm.up
+                  ? _c("img", {
+                      staticClass: "card-img-top profile_img",
+                      attrs: { src: _vm.preview_img, alt: "preview" }
+                    })
+                  : _vm._e()
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("CLOSE")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: {
+                  type: "button",
+                  "data-dismiss": "modal",
+                  disabled: !_vm.up
+                },
+                on: { click: _vm.fileUpload }
+              },
+              [_vm._v("\n                OK\n                ")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ShowProfile.vue?vue&type=template&id=76aa84d1&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ShowProfile.vue?vue&type=template&id=76aa84d1& ***!
@@ -71495,137 +71732,61 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.req.gender,
-                              expression: "req.gender"
+                              value: _vm.req.favorite_food,
+                              expression: "req.favorite_food"
                             }
                           ],
-                          staticClass: "form-control form-select",
-                          attrs: { type: "number", name: "gender" },
+                          staticClass: "form-control",
+                          attrs: { type: "text", name: "gender" },
+                          domProps: { value: _vm.req.favorite_food },
                           on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
                               _vm.$set(
                                 _vm.req,
-                                "gender",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
+                                "favorite_food",
+                                $event.target.value
                               )
                             }
                           }
-                        },
-                        [
-                          _c(
-                            "option",
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("dt", [_vm._v("嫌いな食べ物")]),
+                      _vm._v(" "),
+                      _c("dd", [
+                        _c("input", {
+                          directives: [
                             {
-                              attrs: { value: "0" },
-                              domProps: { selected: !_vm.is_woman }
-                            },
-                            [_vm._v("男")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "option",
-                            {
-                              attrs: { value: "1" },
-                              domProps: { selected: _vm.is_woman }
-                            },
-                            [_vm._v("女")]
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("dt", [_vm._v("生年月日")]),
-                    _vm._v(" "),
-                    _c("dd", { staticClass: "form-group" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.req.birthday,
-                            expression: "req.birthday"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "gender" },
-                        domProps: { value: _vm.req.birthday },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.req.hated_food,
+                              expression: "req.hated_food"
                             }
-                            _vm.$set(_vm.req, "birthday", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("dt", [_vm._v("好きな食べ物")]),
-                    _vm._v(" "),
-                    _c("dd", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.req.favorite_food,
-                            expression: "req.favorite_food"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "gender" },
-                        domProps: { value: _vm.req.favorite_food },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", name: "gender" },
+                          domProps: { value: _vm.req.hated_food },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.req,
+                                "hated_food",
+                                $event.target.value
+                              )
                             }
-                            _vm.$set(
-                              _vm.req,
-                              "favorite_food",
-                              $event.target.value
-                            )
                           }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("dt", [_vm._v("嫌いな食べ物")]),
-                    _vm._v(" "),
-                    _c("dd", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.req.hated_food,
-                            expression: "req.hated_food"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "gender" },
-                        domProps: { value: _vm.req.hated_food },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.req, "hated_food", $event.target.value)
-                          }
-                        }
-                      })
+                        })
+                      ])
                     ])
-                  ])
-            ]),
+              ],
+              1
+            ),
             _vm._v(" "),
             !_vm.editFlg
               ? _c("div", { staticClass: "col-md-7" }, [
@@ -71908,7 +72069,6 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
 render._withStripped = true
 
 
@@ -84132,6 +84292,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/DropImg.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/DropImg.vue ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DropImg_vue_vue_type_template_id_5b31b5b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DropImg.vue?vue&type=template&id=5b31b5b9& */ "./resources/js/components/DropImg.vue?vue&type=template&id=5b31b5b9&");
+/* harmony import */ var _DropImg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DropImg.vue?vue&type=script&lang=js& */ "./resources/js/components/DropImg.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DropImg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DropImg_vue_vue_type_template_id_5b31b5b9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DropImg_vue_vue_type_template_id_5b31b5b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DropImg.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DropImg.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/DropImg.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DropImg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DropImg.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DropImg.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DropImg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DropImg.vue?vue&type=template&id=5b31b5b9&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/DropImg.vue?vue&type=template&id=5b31b5b9& ***!
+  \****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DropImg_vue_vue_type_template_id_5b31b5b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DropImg.vue?vue&type=template&id=5b31b5b9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DropImg.vue?vue&type=template&id=5b31b5b9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DropImg_vue_vue_type_template_id_5b31b5b9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DropImg_vue_vue_type_template_id_5b31b5b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

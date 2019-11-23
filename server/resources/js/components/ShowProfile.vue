@@ -10,7 +10,23 @@
     </div>
     <form v-if="!loading" class="row no-gutters">
       <div class="col-md-4 profile_info">
-        <img class="card-img-top profile_img" src="/storage/mysteryman.png" alt="profile_img">
+
+        <!-- 画像表示エリア -->
+        <div v-if="!editFlg"class="img_box">
+          <img class="card-img-top profile_img" :src="img_file"/>
+        </div>
+        <!-- 画像編集エリア -->
+        <div v-else class="img_box">
+          <div data-toggle="modal" data-target="#img_modal" data-whatever="@president">
+            <img class="card-img-top profile_img gray_out" :src="img_file"/>
+          </div>
+          <div class="edit_photo">
+            <i class="fui fui-plus"></i>
+          </div>
+        </div>
+        <!-- モーダル -->
+        <drop-img @update_img_file="updateImg" :user_id="req.id"></drop-img>
+
         <!-- 左側通常 -->
         <dl v-if="!editFlg">
           <dt>性別</dt>
@@ -113,6 +129,7 @@
 <script>
 import Vue from 'vue'
 import ProfileChart from './ProfileChart'
+import DropImg from './DropImg'
 
 
 export default {
@@ -140,6 +157,7 @@ export default {
         personality_5: this.profile.personality_5,
         personality_6: this.profile.personality_6,
       },
+      img_file: this.profile.img_file, // アップロード画像ファイル名
       gender: '',
       editFlg: false,
       updated: false,
@@ -150,7 +168,7 @@ export default {
 
   mounted: function () {
     // 性別の翻訳値を設定
-    this.gender = this.setGender(this.profile.gender);
+    this.gender = this.setGender(this.profile.gender)
   },
 
   methods: {
@@ -173,8 +191,13 @@ export default {
           this.loading = false
       });
     },
+    // プロフィール画像を更新
+    updateImg(file_path) {
+      this.img_file = file_path
+    }
   }
 }
 Vue.component('profile-chart', ProfileChart)
+Vue.component('drop-img', DropImg)
 
 </script>

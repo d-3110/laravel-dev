@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Profile;
 
@@ -55,8 +56,29 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $profile = Profile::find($id);
-        $profile->fill($request->all())->save();
-        // return redirect("api/profiles/".$id);
+        // 全カラムを対象
+        $profile->fill($request->all());
+        $profile->save();
+    }
+
+    /**
+     * Upload the profile img
+     *
+     */
+    public function fileUpload(Request $request, $id)
+    {
+        $profile = Profile::find($id);
+        $user_id = $profile->user_id;
+        $directory = "public/profiles/$user_id/";
+        
+        // 現在の画像をディレクトリごと削除
+        Storage::deleteDirectory($directory);
+        // ストレージに画像を格納
+        $file_name = request()->file->getClientOriginalName();
+        request()->file->storeAs($directory, $file_name);
+
+        // テーブルにファイル名保存
+        $profile->update(['img_file' => '/storage/profiles/'.$user_id.'/'.$file_name]);
     }
 
     /**
