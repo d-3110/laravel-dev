@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('dept_id')->unsigned();
             $table->integer('job_id')->unsigned();
             $table->boolean('is_admin')->default(0);
+            $table->rememberToken();
             $table->timestamps();
             $table->foreign('dept_id')->references('id')->on('depts');
             $table->foreign('job_id')->references('id')->on('jobs');

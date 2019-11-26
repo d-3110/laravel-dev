@@ -2372,9 +2372,26 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
       })["catch"](function (err) {
         _this.errors = err.response.data.errors;
-        _this.error_flg = true;
+        _this.error_flg = true; // グラフの値を初回読み込み時の状態に戻す
+
+        _this.cansel();
+
         _this.loading = false;
       });
+    },
+    // DBの値にセットし直す
+    cansel: function cansel() {
+      this.req.name = this.profile.name;
+      this.req.gender = this.profile.gender;
+      this.req.birthday = this.profile.birthday;
+      this.req.favorite_food = this.profile.favorite_food;
+      this.req.hated_food = this.profile.hated_food;
+      this.req.personality_1 = this.profile.personality_1;
+      this.req.personality_2 = this.profile.personality_2;
+      this.req.personality_3 = this.profile.personality_3;
+      this.req.personality_4 = this.profile.personality_4;
+      this.req.personality_5 = this.profile.personality_5;
+      this.req.personality_6 = this.profile.personality_6;
     }
   }
 });
