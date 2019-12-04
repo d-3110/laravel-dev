@@ -1,6 +1,3 @@
-@php
-    $url = route('register');
-@endphp
 
 @extends('layouts.template')
 

@@ -72,16 +72,46 @@ class User extends Authenticatable
         return [$depst_list, $job_list];
     }
 
-    // 一覧での検索
-    public static function indexSearch($keyword)
+    /**
+     * 部署でフィルタリング
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|null $dept_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDeptFilter($query, ?string $dept_id)
     {
-        // クエリ生成
-        $query = User::query();
-        // キーワードがあったら
-        if(!empty($keyword)) {
-          $query->join('profiles', 'users.id', '=', 'profiles.user_id')->where('email','like','%'.$keyword.'%')->orWhere('profiles.name','like','%'.$keyword.'%');
-        }
-        $users = $query->orderBy('users.id','asc')->paginate(10);
-        return $users;
+      if (!is_null($dept_id)) {
+        return $query->where('dept_id', $dept_id);
+      }
+      return $query;
+    }
+
+    /**
+     * 職種でフィルタリング
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|null $job_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeJobFilter($query, ?string $job_id)
+    {
+      if (!is_null($job_id)) {
+        return $query->where('job_id', $job_id);
+      }
+      return $query;
+    }
+    /**
+     * 検索ワードでフィルタリング
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|null $job_id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchFilter($query, ?string $keyword)
+    {
+      if (!is_null($keyword)) {
+        return $query->join('profiles', 'users.id', '=', 'profiles.user_id')
+                     ->where('email','like','%'.$keyword.'%')
+                     ->orWhere('profiles.name','like','%'.$keyword.'%');
+      }
+      return $query;
     }
 }

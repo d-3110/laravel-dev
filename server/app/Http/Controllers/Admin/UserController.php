@@ -15,12 +15,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // キーワード受け取り
-        $keyword = $request->input('keyword');
-        
-        // 検索 or 全件抽出
-        $users = User::indexSearch($keyword);
-        return view('admin.users.index', ['users' => $users, 'keyword' => $keyword]);
+        // 利用するときはEloquentモデルやクエリビルダーから、scope接頭語を外して呼び出す
+        $users = User::deptFilter(request('dept_id'))  // 部署で絞り込み
+                     ->jobFilter(request('job_id'))    // 職種で絞り込み
+                     ->searchFilter(request('keyword'))   // 検索ワードで絞り込み
+                     ->paginate(10);
+        return view('admin.users.index', ['users' => $users, 'keyword' => request('keyword')]);
     }
 
     /**
