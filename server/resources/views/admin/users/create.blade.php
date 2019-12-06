@@ -1,6 +1,6 @@
 @php
-    $title = __('Users Regist');
-    $url = 'admin/users/regist';
+    $title = __('Users Create');
+    $url = 'admin/users/create';
 @endphp
 
 @extends('layouts.template')
@@ -16,29 +16,29 @@
     {{ Form::open(['url' => $url, 'method' => 'post']) }}
     @csrf
     <div class="form-group">
-        {{ Form::label('edit_email', 'email', ['class' => 'col-form-label']) }}
-        {{ Form::email('email', '', ['id' => 'edit_email', 'class' => 'form-control', 'placeholder' => 'email']) }}
+        {{ Form::label('create_email', 'email', ['class' => 'col-form-label']) }}
+        {{ Form::email('email', '', ['id' => 'create_email', 'class' => 'form-control', 'placeholder' => 'email']) }}
     </div>
     <div class="form-group">
-        {{ Form::label('edit_deptId', 'dept', ['class' => 'col-form-label']) }}
+        {{ Form::label('create_deptId', 'dept', ['class' => 'col-form-label']) }}
         {{ Form::select('dept_id',
                         $depts,
                         '1',
-                        ['id' => 'edit_deptId', 'class' => 'form-control form-select']
+                        ['id' => 'create_deptId', 'class' => 'form-control form-select']
                         )
         }}
     </div>
     <div class="form-group">
-        {{ Form::label('edit_jobId', 'job', ['class' => 'col-form-label']) }}
+        {{ Form::label('create_jobId', 'job', ['class' => 'col-form-label']) }}
         {{ Form::select('job_id',
                         $jobs,
                         '1',
-                        ['id' => 'edit_jobId', 'class' => 'form-control form-select']
+                        ['id' => 'create_jobId', 'class' => 'form-control form-select']
                         )
         }}
     </div>
     <div>
-        {{ Form::label('edit_isAdmin', 'authority', ['class' => 'col-form-label']) }}
+        {{ Form::label('create_isAdmin', 'authority', ['class' => 'col-form-label']) }}
     </div>
     <div class="form-check form-check-inline">
         <label class="radio ">
