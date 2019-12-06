@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Profile;
 
 class UserController extends Controller
 {
@@ -15,12 +17,29 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        list($depts, $jobs) = User::getArraySelectBox();
+
         // 利用するときはEloquentモデルやクエリビルダーから、scope接頭語を外して呼び出す
         $users = User::deptFilter(request('dept_id'))  // 部署で絞り込み
                      ->jobFilter(request('job_id'))    // 職種で絞り込み
                      ->searchFilter(request('keyword'))   // 検索ワードで絞り込み
                      ->paginate(10);
-        return view('admin.users.index', ['users' => $users, 'keyword' => request('keyword')]);
+        return view('admin.users.index', ['users' => $users,
+                                          'keyword' => request('keyword'),
+                                          'depts' => $depts,
+                                          'jobs' => $jobs,
+                                          ]);
+    }
+
+    /**
+     * index画面の絞り込み条件選択
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function filter(Request $request)
+    {
+        list($depts, $jobs) = User::getArraySelectBox();
+        return view('admin.users.filter', ['depts' => $depts, 'jobs' => $jobs]);
     }
 
     /**
@@ -44,8 +63,11 @@ class UserController extends Controller
     {
         $user = new User;
         $user->fill($request->all());
-        $user->password = Hash::make($user->password);
+        $user->password = Hash::make('password');
         $user->save();
+
+        // profileに空レコード追加
+        Profile::create(['user_id' => $user->id,'name' => '名無し']);
         return redirect()->route('admin.users.index');
     }
 
