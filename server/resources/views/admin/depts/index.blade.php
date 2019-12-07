@@ -10,7 +10,7 @@
 
 @section('content')
 @include('header')
-    <div class="table-responsive table">
+    <div id="app" class="table-responsive table">
         <table class="table table-striped">
             <thead>
                 <tr class="table-success">

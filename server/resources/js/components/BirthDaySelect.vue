@@ -21,25 +21,25 @@
 <script>
 export default {
   props:['birth_day'],
-   data() {
-    return {
+    data() {
+     return {
       year: 2019,
       month: 1,
       day: 1,
       days_max: '',
-     }
-   },
+    }
+  },
    created: function () {
     this.splitBirthDay()
     this.getDays()
-   },
-   methods: {
+  },
+  methods: {
     // 日付を年・月・日に分割
     splitBirthDay() {
       var result = this.birth_day.split('-')
-      this.year = result[0]
+      this.year = Number(result[0])
       this.month = Number(result[1])
-      this.day = result[2]
+      this.day = Number(result[2])
     },
     // 日の最大数を取得
     getDays: function () {
@@ -51,6 +51,6 @@ export default {
       this.getDays()
       this.$parent.req.birthday = this.year + '-' + this.month + '-' + this.day
     }
-   }
+  }
 }
 </script>

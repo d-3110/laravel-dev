@@ -10,7 +10,7 @@
 
 @section('content')
 @include('header')
-    <div class="col-sm-12 clearfix">
+    <div id="app" class="col-sm-12 clearfix">
         <!-- 検索フォーム　-->
         <div class="float-right clearfix">
             <form class="form-inline" action="{{url('admin/users')}}">

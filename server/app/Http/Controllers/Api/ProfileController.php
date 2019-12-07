@@ -57,7 +57,7 @@ class ProfileController extends Controller
     {
         $validatedData = $request->validate([
             'name'          => 'required|string',
-            'birthday'      => 'required|date_format:"Y-m-d"',
+            'birthday'      => 'required|date',
             'gender'        => 'required|boolean',
             'favorite_food' => 'required|string',
             'hated_food'    => 'required|string',
