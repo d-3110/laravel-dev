@@ -21,7 +21,7 @@
               <button type="submit" class="login-button btn btn-info"><i class="fa fa-search"></i></button>
             </form>
             <div class="float-right">
-                <a href="{{ url('/admin/users/filter') }}"">詳細検索</a>
+                <a href="{{ url('/admin/users/filter') }}">詳細検索</a>
             </div>
         </div>
     </div>

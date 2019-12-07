@@ -22,4 +22,6 @@ Route::group(['middleware' => ['api']], function(){
 
   // プロフィール画像保存
   Route::post('profiles/fileupload/{profile}', 'Api\ProfileController@fileUpload');
+  // ユーザ一覧表示
+  Route::get('users/', 'Api\UserController@index');
 });

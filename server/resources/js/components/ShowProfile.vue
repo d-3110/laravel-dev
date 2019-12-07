@@ -76,7 +76,7 @@
               {{req.name}}
             </h5>
           </div>
-          <profile-chart></profile-chart>
+          <profile-chart :personality="req"></profile-chart>
         </div>
       </div>
       <!-- 右側編集エリア -->
