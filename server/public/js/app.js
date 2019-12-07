@@ -1876,9 +1876,9 @@ __webpack_require__.r(__webpack_exports__);
     // 日付を年・月・日に分割
     splitBirthDay: function splitBirthDay() {
       var result = this.birth_day.split('-');
-      this.year = result[0];
+      this.year = Number(result[0]);
       this.month = Number(result[1]);
-      this.day = result[2];
+      this.day = Number(result[2]);
     },
     // 日の最大数を取得
     getDays: function getDays() {

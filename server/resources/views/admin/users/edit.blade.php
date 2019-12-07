@@ -12,7 +12,7 @@
 
 @section('content')
 @include('header')
-<div class="container">
+<div id="app" class="container">
     <h1>{{ $title }}</h1>
     {{ Form::open(['url' => $url, 'method' => 'post']) }}
     @csrf
@@ -43,16 +43,18 @@
     </div>
     <div class="form-check form-check-inline">
         <label class="radio ">
-              {{ Form::radio('is_admin', '0', !$is_admin, ['data-toggle' => 'radio']) }}
+              {{ Form::radio('is_admin', '0', $is_admin, ['data-toggle' => 'radio']) }}
               General
         </label>
     </div>
     <div class="form-check form-check-inline">
         <label class="radio">
-              {{ Form::radio('is_admin', '1', $is_admin, ['data-toggle' => 'radio']) }}
+              {{ Form::radio('is_admin', '1', !$is_admin, ['data-toggle' => 'radio']) }}
               Admin
         </label>
     </div>
+    <!-- profile -->
+
     <div class="form-group">
         {{ Form::hidden('_method', 'patch') }}
         {{ Form::submit('UPDATE', ['class' => 'btn btn-primary', 'onfocus' => 'this.blur();']) }}

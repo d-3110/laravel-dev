@@ -11,7 +11,7 @@
 
 @section('content')
 @include('header')
-<div class="container">
+<div id="app" class="container">
     <h1>{{ $title }}</h1>
     {{ Form::open(['url' => $url, 'method' => 'post']) }}
     @csrf
