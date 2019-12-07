@@ -13,6 +13,8 @@ import { Radar } from 'vue-chartjs';
 
 export default {
   extends: Radar,
+  props:['personality'],
+
   mounted() {
     this.renderChart(
       {
@@ -42,12 +44,19 @@ export default {
             pointHoverBorderColor: 'rgba(26,188,156,1)',
             //結合点より外でマウスホバーを認識する範囲（ピクセル単位）
             hitRadius: 5,
-            data: [this.$parent.req.personality_1,
-                   this.$parent.req.personality_2,
-                   this.$parent.req.personality_3,
-                   this.$parent.req.personality_4,
-                   this.$parent.req.personality_5, 
-                   this.$parent.req.personality_6
+            // data: [this.$parent.req.personality_1,
+            //        this.$parent.req.personality_2,
+            //        this.$parent.req.personality_3,
+            //        this.$parent.req.personality_4,
+            //        this.$parent.req.personality_5, 
+            //        this.$parent.req.personality_6
+            //        ],
+            data: [this.personality.personality_1,
+                   this.personality.personality_2,
+                   this.personality.personality_3,
+                   this.personality.personality_4,
+                   this.personality.personality_5, 
+                   this.personality.personality_6
                    ],
             backgroundColor: [
                 'rgba(26,188,156,0.5)'
