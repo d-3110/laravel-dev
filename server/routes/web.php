@@ -29,6 +29,21 @@ Route::group(['middleware' => ['auth', 'can:all-user']], function () {
   Route::get('/users', 'UserController@index')->name('users.index');
   Route::get('/profiles/{id}', 'ProfileController@show')->name('users.show');
   Route::get('/mypage/', 'ProfileController@index')->name('users.index');
+
+  // 勤怠一覧(月ごと)
+  Route::get('/work_time/{year?}/{month?}/{day?}', 'AttendanceRecordController@index')->name('records.index');
+  
+  // 勤怠登録
+  Route::get('/work_time/{year}/{month}/{day}/create', 'AttendanceRecordController@create')->name('records.create');
+  Route::post('/work_time/create', 'AttendanceRecordController@store')->name('records.store');
+
+  // 勤怠編集
+  Route::get('/work_time/{id}/edit', 'AttendanceRecordController@edit')->name('records.edit'); 
+  Route::match(['PUT','PATCH'], '/work_time/{id}/edit', 'AttendanceRecordController@update')
+  ->name('records.update');
+
+  // 勤怠削除
+  Route::post('/work_time/{id}/delete', 'AttendanceRecordController@destroy')->name('records.destroy');
 });
 
 /****************************************************************************/

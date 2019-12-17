@@ -1,0 +1,14 @@
+.date_title {
+  display: flex;
+  justify-content: center;
+}
+
+.date_title > div {
+  margin: 0 30px;
+}
+
+.today {
+  background-color: #98dfb6;
+  border-radius: 50%;
+  border: solid #98dfb6;
+}

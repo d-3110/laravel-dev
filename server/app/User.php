@@ -48,6 +48,18 @@ class User extends Authenticatable
         return $this->hasOne('App\Profile');
     }
 
+    // 1対多
+    public function AttendanceRecord()
+    {
+        return $this->hasMany('App\AttendanceRecord');
+    }
+
+    // 1対多
+    public function PaidHoliday()
+    {
+        return $this->hasMany('App\PaidHoliday');
+    }
+
     // protected $hidden = [
     //     'password', 'remember_token',
     // ];
