@@ -49,6 +49,9 @@ Route::group(['middleware' => ['auth', 'can:all-user']], function () {
   Route::get('/holidays', 'PaidHolidayController@index')->name('holidays.index');
   // 有給詳細
   Route::get('/holidays{id}', 'PaidHolidayController@show')->name('holidays.show');
+  // 有給申請
+  Route::get('/holidays/app', 'PaidHolidayController@app')->name('holidays.app');
+  Route::post('/holidays/app', 'PaidHolidayController@update')->name('holidays.update');
 
 });
 

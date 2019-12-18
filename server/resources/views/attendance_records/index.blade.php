@@ -2,8 +2,8 @@
     $title = __('きんたい');
     $current_ym = "{$current_date['year']}/{$current_date['month']}";
     $current_ymd = "{$current_date['year']}/{$current_date['month']}/{$current_date['day']}";
-    $prev_url = "work_time/{$prev_date['year']}/{$prev_date['month']}";
-    $next_url = "work_time/{$next_date['year']}/{$next_date['month']}";
+    $prev_url = "work_time/list/{$prev_date['year']}/{$prev_date['month']}";
+    $next_url = "work_time/list/{$next_date['year']}/{$next_date['month']}";
 @endphp
 
 @extends('layouts.template')
@@ -26,7 +26,7 @@
     <a href="{{ url($next_url) }}"> >> </a>
   </h1>
   <h2>
-    <a class="btn btn-primary" href="{{ url(url('work_time/'.$current_ymd. '/create')) }}">勤怠入力</a>
+    <a class="btn btn-primary" href="{{ url('work_time/'.$current_ymd. '/create') }}">勤怠入力</a>
   </h2>
   <table class="table table-hover table-sm">
     <tr class="table-success">

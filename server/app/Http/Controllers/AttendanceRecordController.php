@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\AttendanceRecord;
-use App\PaidHoliday;
 use Carbon\Carbon;
 
 class AttendanceRecordController extends Controller
@@ -38,7 +36,7 @@ class AttendanceRecordController extends Controller
                                                   ->whereYear('date', $year)
                                                   ->whereMonth('date', $month)
                                                   ->get();
-        
+
         // 前月/次月を作成する
         list($prev_date, $next_date) = AttendanceRecord::makePrevAndNext($year, $month);
 
@@ -48,13 +46,7 @@ class AttendanceRecordController extends Controller
         // 月合計を作成
         $total = AttendanceRecord::makeTotal($records);
 
-        // ログインしているユーザの利用可能な有休日数を取得
-        $holiday = PaidHoliday::where('user_id', $user_id)
-                                      ->where('expire_date', '>', $today)
-                                      ->whereNull('use_date')
-                                      ->count('expire_date');
-
-        return view('attendance_records.index', compact('current_date', 'prev_date', 'next_date', 'calendar', 'total', 'holiday'));
+        return view('attendance_records.index', compact('current_date', 'prev_date', 'next_date', 'calendar', 'total'));
     }
 
     /**

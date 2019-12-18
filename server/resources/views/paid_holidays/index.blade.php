@@ -15,28 +15,28 @@
 @section('content')
 @include('header')
 <div id="app" class="container">
-  <h2>残日数：<a href="#">{$}日</a></h2>
-  <table>
-    <tr>
-      <td>日付</td>
+  <h2>残日数：<a href="#">{{$count}}</a>日</h2>
+  <h3>
+    <a class="btn btn-primary" href="{{ url('holidays/app') }}">有給申請</a>
+  </h3>
+  <table class="table table-hover table-sm">
+    <tr class="table-success">
+      <td>付与日付</td>
+      <td>有効期限</td>
       <td>使用</td>
       <td>状態</td>
     </tr>
-    @foreach
+    @foreach($holidays as $holiday)
     <tr>
-      <td>2019/12/1</td>
-      <td>1</td>
-      <td>承諾済</td>
+      <td>{{$holiday->grant_date}}</td>
+      <td>{{$holiday->expire_date}}</td>
+      <td>{{$holiday->use_date}}</td>
+      <td>{{$holiday->status}}</td>
     </tr>
     @endforeach
   </table>
 </div>
 @section('page_script')
-<script type="text/javascript">
-  // 土日の行に色をつける
-  $('td:contains("Sat")').parent("tr").addClass("table-info");
-  $('td:contains("Sun")').parent("tr").addClass("table-danger");
-</script>
 @stop
 @include('script')
 @endsection
