@@ -44,6 +44,12 @@ Route::group(['middleware' => ['auth', 'can:all-user']], function () {
 
   // 勤怠削除
   Route::post('/work_time/{id}/delete', 'AttendanceRecordController@destroy')->name('records.destroy');
+
+  // 有給一覧
+  Route::get('/holidays', 'PaidHolidayController@index')->name('holidays.index');
+  // 有給詳細
+  Route::get('/holidays{id}', 'PaidHolidayController@show')->name('holidays.show');
+
 });
 
 /****************************************************************************/
