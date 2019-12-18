@@ -116,12 +116,12 @@
       </div>
     </form><!-- wrrap END -->
     <!-- ボタンエリア　-->
-    <div v-if="!edit_flg && !loading" class="form-group btn_group">
+    <div v-if="!edit_flg && !loading && is_mine" class="form-group btn_group">
       <button type="button" class="btn btn-primary edit_btn" @click="(edit_flg = true)">
         <i class="fa fa-pencil"></i>
       </button>
     </div>
-    <div v-else-if="!loading" class="form-group btn_group">
+    <div v-else-if="!loading && is_mine" class="form-group btn_group">
       <button type="button" class="btn btn-info edit_btn" @click="update">
         <i class="fui fui-check"></i>
       </button>
@@ -173,6 +173,7 @@ export default {
       loading: false,
       errors: [],
       error_flg: false,
+      is_mine: this.profile.is_mine,
     }
   },
 

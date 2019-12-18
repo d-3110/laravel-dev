@@ -27,8 +27,8 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth', 'can:all-user']], function () {
   // ユーザ一覧
   Route::get('/users', 'UserController@index')->name('users.index');
-  Route::get('/profiles/{id}', 'ProfileController@show')->name('users.show');
-  Route::get('/mypage/', 'ProfileController@index')->name('users.index');
+  Route::get('/profiles/{id}', 'ProfileController@show')->name('profiles.show');
+  Route::get('/mypage/', 'ProfileController@index')->name('profiles.index');
 
   // 勤怠一覧(月ごと)
   Route::get('/work_time/{year?}/{month?}/{day?}', 'AttendanceRecordController@index')->name('records.index');

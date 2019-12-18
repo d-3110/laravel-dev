@@ -14,7 +14,7 @@
 <div id="app" class="container">
   <h1>{{ $title }}</h1>
   @if ($errors->any())
-  <div class="alert alert-danger">
+  <div class="alert alert-primary">
     <ul>
       @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>

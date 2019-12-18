@@ -39,8 +39,16 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
+        // ログインユーザ取得
+        // $user = Auth::user();
+        // $is_mine = false;
+        // if ($id === $user->id) {
+        //     // ログインユーザどうか
+        //     $is_mine = true;
+        // }
         $profile = Profile::findOrFail($id);
-        return view('profiles.show', ['profile' => $profile]);
+        // var_dump($profile->is_mine);
+        return view('profiles.show', compact('profile'));
     }
     /**
      * Update the specified resource in storage.

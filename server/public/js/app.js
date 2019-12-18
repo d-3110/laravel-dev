@@ -2343,7 +2343,8 @@ __webpack_require__.r(__webpack_exports__);
       updated: false,
       loading: false,
       errors: [],
-      error_flg: false
+      error_flg: false,
+      is_mine: this.profile.is_mine
     };
   },
   mounted: function mounted() {
@@ -72592,7 +72593,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      !_vm.edit_flg && !_vm.loading
+      !_vm.edit_flg && !_vm.loading && _vm.is_mine
         ? _c("div", { staticClass: "form-group btn_group" }, [
             _c(
               "button",
@@ -72608,7 +72609,7 @@ var render = function() {
               [_c("i", { staticClass: "fa fa-pencil" })]
             )
           ])
-        : !_vm.loading
+        : !_vm.loading && _vm.is_mine
         ? _c("div", { staticClass: "form-group btn_group" }, [
             _c(
               "button",
@@ -72748,13 +72749,9 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: _vm.users / _vm.profiles / +user.id }
-                          },
-                          [_vm._v("もっと詳しく")]
-                        ),
+                        _c("a", { attrs: { href: "profiles/" + user.id } }, [
+                          _vm._v("もっと詳しく")
+                        ]),
                         _vm._v(" "),
                         _c(
                           "button",

@@ -15,7 +15,7 @@
 @section('content')
 @include('header')
 <div id="app">
-  <show-profile v-bind:profile="{{ $profile }}"></show-profile>
+  <show-profile :profile="{{ $profile }}"></show-profile>
 </div>
 @section('page_script')
 
