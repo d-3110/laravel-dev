@@ -134,7 +134,7 @@ class AttendanceRecordController extends Controller
         $record = AttendanceRecord::find($id);
         $record->fill($request->all());
         $record->save();
-        return redirect()->route('attendance_records.index');
+        return redirect()->route('records.index');
     }
 
     /**
@@ -147,6 +147,6 @@ class AttendanceRecordController extends Controller
     {
         $record = AttendanceRecord::find($id);
         $record->delete();
-        return redirect()->route('attendance_records.index');
+        return redirect()->route('records.index');
     }
 }

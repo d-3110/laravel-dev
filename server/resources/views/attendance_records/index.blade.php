@@ -65,7 +65,7 @@
         </td>
       @endif
       <td>
-        <form action="{{ url('work_time'. $date['id']. '/delete') }}" method="POST" name="delete_record">
+        <form action="{{ url('work_time/'. $date['id']. '/delete') }}" method="POST" name="delete_record">
           @csrf
           <input type="hidden" name="attendance_record">
 

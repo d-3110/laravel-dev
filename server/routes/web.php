@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth', 'can:all-user']], function () {
   Route::get('/mypage/', 'ProfileController@index')->name('profiles.index');
 
   // 勤怠一覧(月ごと)
-  Route::get('/work_time/{year?}/{month?}/{day?}', 'AttendanceRecordController@index')->name('records.index');
+  Route::get('/work_time/list/{year?}/{month?}/{day?}', 'AttendanceRecordController@index')->name('records.index');
   
   // 勤怠登録
   Route::get('/work_time/{year}/{month}/{day}/create', 'AttendanceRecordController@create')->name('records.create');
