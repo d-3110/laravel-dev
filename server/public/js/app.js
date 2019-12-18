@@ -72670,112 +72670,120 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card-deck" }, [
-    _vm.loading
-      ? _c(
-          "div",
-          {
-            staticClass: "spinner-border text-primary profile_spiner",
-            attrs: { role: "status" }
-          },
-          [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
-        )
-      : _c(
-          "div",
-          { staticClass: "row" },
-          _vm._l(_vm.users, function(user, index) {
-            return _c("div", { staticClass: "col-sm-4 h-auto" }, [
-              _c("div", { staticClass: "flip" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "card",
-                    class: { flipped: _vm.isFlip[index] }
-                  },
-                  [
-                    _vm._v(
-                      "\n          " + _vm._s(_vm.isFlip.index) + "\n          "
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "face front" }, [
-                      _c("div", { staticClass: "card-top" }, [
-                        _c("img", {
-                          attrs: {
-                            src: user.profile.img_file,
-                            alt: "profile_img"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _c("h5", { staticClass: "card-title" }, [
-                          _vm._v(_vm._s(user.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
-                          _vm._v(_vm._s(user.dept.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
-                          _vm._v(_vm._s(user.job.name))
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "flipControl btn btn-primary flip_btn",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.flip(index)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-chevron-right" })]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "face back" }, [
-                      _c(
-                        "div",
-                        { staticClass: "card-top" },
-                        [
-                          _c("profile-chart", {
-                            attrs: { personality: user.profile }
-                          })
-                        ],
-                        1
+  return _c(
+    "div",
+    { staticClass: "card-deck", class: { loading: _vm.loading } },
+    [
+      _vm.loading
+        ? _c(
+            "div",
+            {
+              staticClass: "spinner-border text-primary profile_spiner",
+              attrs: { role: "status" }
+            },
+            [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+          )
+        : _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.users, function(user, index) {
+              return _c("div", { staticClass: "col-sm-4 h-auto" }, [
+                _c("div", { staticClass: "flip" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "card",
+                      class: { flipped: _vm.isFlip[index] }
+                    },
+                    [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.isFlip.index) +
+                          "\n          "
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _c("a", { attrs: { href: "profiles/" + user.id } }, [
-                          _vm._v("もっと詳しく")
+                      _c("div", { staticClass: "face front" }, [
+                        _c("div", { staticClass: "card-top" }, [
+                          _c("img", {
+                            attrs: {
+                              src: user.profile.img_file,
+                              alt: "profile_img"
+                            }
+                          })
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "flipControl btn btn-primary flip_btn",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.flip(index)
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("h5", { staticClass: "card-title" }, [
+                            _vm._v(_vm._s(user.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "card-text" }, [
+                            _vm._v(_vm._s(user.dept.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "card-text" }, [
+                            _vm._v(_vm._s(user.job.name))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "flipControl btn btn-primary flip_btn",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.flip(index)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-chevron-left" })]
-                        )
+                            },
+                            [_c("i", { staticClass: "fa fa-chevron-right" })]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "face back" }, [
+                        _c(
+                          "div",
+                          { staticClass: "card-top" },
+                          [
+                            _c("profile-chart", {
+                              attrs: { personality: user.profile }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("a", { attrs: { href: "profiles/" + user.id } }, [
+                            _vm._v("もっと詳しく")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "flipControl btn btn-primary flip_btn",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.flip(index)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-chevron-left" })]
+                          )
+                        ])
                       ])
-                    ])
-                  ]
-                )
+                    ]
+                  )
+                ])
               ])
-            ])
-          }),
-          0
-        )
-  ])
+            }),
+            0
+          )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

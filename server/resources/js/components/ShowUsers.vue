@@ -1,5 +1,5 @@
 <template>
-  <div class="card-deck">
+  <div class="card-deck" v-bind:class="{ loading: loading }">
     <!-- ロード画面 -->
     <div v-if="loading" class="spinner-border text-primary profile_spiner" role="status">
       <span class="sr-only">Loading...</span>
