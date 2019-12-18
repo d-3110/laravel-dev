@@ -18,6 +18,7 @@ class PaidHolidaysTableSeeder extends Seeder
             'expire_date' => '2099-10-01',
             'created_at'  => new DateTime(),
             'updated_at'  => new DateTime(),
+            'status'      => 0,
         ]);
         // 有効２
         DB::table('paid_holidays')->insert([
@@ -26,6 +27,9 @@ class PaidHolidaysTableSeeder extends Seeder
             'expire_date' => '2099-10-01',
             'created_at'  => new DateTime(),
             'updated_at'  => new DateTime(),
+            'status'      => 1,
+            'application_date' => '2019-10-2',
+            'comment'     => '私用のため'
         ]);
         // 有効３
         DB::table('paid_holidays')->insert([

@@ -20,6 +20,9 @@ class CreatePaidHolidaysTable extends Migration
             $table->date('grant_date');
             $table->date('expire_date');
             $table->date('use_date')->nullable()->default(null);
+            $table->integer('status')->nullable()->default(0);
+            $table->date('application_date')->nullable()->default(null);
+            $table->string('comment')->nullable()->default(null);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });
