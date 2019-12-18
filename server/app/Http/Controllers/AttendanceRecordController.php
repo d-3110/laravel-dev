@@ -34,12 +34,11 @@ class AttendanceRecordController extends Controller
         $today = Carbon::parse($year.'-'.$month.'-'.$day)->format('Y-m-d');
         
         // 勤怠情報を取得
-        // 「whereYear」等がEloquentでは使えないためクエリビルダー
-        $records = DB::table('attendance_records')->where('user_id', $user_id)
+        $records = AttendanceRecord::where('user_id', $user_id)
                                                   ->whereYear('date', $year)
                                                   ->whereMonth('date', $month)
-                                                  ->get()
-                                                  ->toArray();
+                                                  ->get();
+        
         // 前月/次月を作成する
         list($prev_date, $next_date) = AttendanceRecord::makePrevAndNext($year, $month);
 
