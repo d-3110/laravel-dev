@@ -12,9 +12,9 @@
 @section('content')
 @include('header')
 <div id="app" class="container">
-  <h1>{{ $title }}</h1>
+  <h4>{{ $title }}</h4>
   @if ($errors->any())
-  <div class="alert alert-alert-danger">
+  <div class="alert alert-danger">
     <ul>
       @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
@@ -30,15 +30,15 @@
   </div>
   <div class="form-group">
     {{ Form::label('edit_start_time', 'start_time', ['class' => 'col-form-label']) }}
-    {{ Form::time('start_time', $record->start_time , ['id' => 'edit_start_time', 'class' => 'form-control']) }}
+    {{ Form::time('start_time', $record->start_time , ['id' => 'edit_start_time', 'class' => 'form-control', 'step' => '900']) }}
   </div>
   <div class="form-group">
     {{ Form::label('edit_break_time', 'break_time', ['class' => 'col-form-label']) }}
-    {{ Form::time('break_time', $record->break_time , ['id' => 'edit_break_time', 'class' => 'form-control']) }}
+    {{ Form::time('break_time', $record->break_time , ['id' => 'edit_break_time', 'class' => 'form-control', 'step' => '900']) }}
   </div>
   <div class="form-group">
     {{ Form::label('edit_end_time', 'end_time', ['class' => 'col-form-label']) }}
-    {{ Form::time('end_time', $record->end_time , ['id' => 'edit_end_time', 'class' => 'form-control']) }}
+    {{ Form::time('end_time', $record->end_time , ['id' => 'edit_end_time', 'class' => 'form-control', 'step' => '900']) }}
   </div>
   <div class="form-group">
     {{ Form::submit('UPDATE', ['class' => 'btn btn-primary', 'onfocus' => 'this.blur();']) }}

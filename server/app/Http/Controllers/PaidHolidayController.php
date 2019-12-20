@@ -30,8 +30,12 @@ class PaidHolidayController extends Controller
                                ->where('expire_date', '>', $today)
                                ->Where('status', '<', 2)
                                ->get();
+        // 有給申請中を取得
+        $app_count = PaidHoliday::where('status', 1)
+                                     ->get()
+                                     ->count();
         $count = $holidays->count();
-        return view('paid_holidays.index', compact('holidays', 'count'));
+        return view('paid_holidays.index', compact('holidays', 'count', 'app_count'));
     }
 
     /**
@@ -59,7 +63,7 @@ class PaidHolidayController extends Controller
             'use_date' => 'required|date_format:"Y-m-d"|unique:paid_holidays',
             'comment'  => 'required|string',
         ]);
-        
+
         // 今日の日付を取得
         $today = Carbon::parse('now')->format('Y-m-d');
         $user_id = $request->user->id;

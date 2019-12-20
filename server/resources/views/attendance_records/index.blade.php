@@ -20,14 +20,14 @@
 @include('header')
 <div id="app" class="container">
   <!-- 月別画面（初期画面 -->
-  <h1 class="date_title">
+  <h3 class="date_title">
     <a href="{{ url($prev_url) }}"> << </a>
     <div>{{ $current_date['year'] }}年{{ $current_date['month'] }}月</div>
     <a href="{{ url($next_url) }}"> >> </a>
-  </h1>
-  <h2>
+  </h3>
+  <h4>
     <a class="btn btn-primary" href="{{ url('work_time/'.$current_ymd. '/create') }}">勤怠入力</a>
-  </h2>
+  </h4>
   <table class="table table-hover table-sm">
     <tr class="table-success">
       <td>日付</td>

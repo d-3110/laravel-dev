@@ -25,6 +25,7 @@ class PaidHolidaysTableSeeder extends Seeder
             'user_id'     => 1,
             'grant_date'  => '2019-10-01',
             'expire_date' => '2099-10-01',
+            'use_date'    => '2020-10-01',
             'created_at'  => new DateTime(),
             'updated_at'  => new DateTime(),
             'status'      => 1,
@@ -43,7 +44,7 @@ class PaidHolidaysTableSeeder extends Seeder
         DB::table('paid_holidays')->insert([
             'user_id'     => 1,
             'grant_date'  => '2019-10-01',
-            'expire_date' => '2099-10-01',
+            'expire_date' => '2022-10-01',
             'created_at'  => new DateTime(),
             'updated_at'  => new DateTime(),
         ]);
@@ -51,7 +52,7 @@ class PaidHolidaysTableSeeder extends Seeder
         DB::table('paid_holidays')->insert([
             'user_id'     => 1,
             'grant_date'  => '2019-10-01',
-            'expire_date' => '2099-10-01',
+            'expire_date' => '2022-10-01',
             'created_at'  => new DateTime(),
             'updated_at'  => new DateTime(),
         ]);
@@ -62,6 +63,9 @@ class PaidHolidaysTableSeeder extends Seeder
             'grant_date'  => '2019-10-01',
             'expire_date' => '2099-10-01',
             'use_date'    => '2019-10-02',
+            'status'      => 2,
+            'application_date' => '2019-10-3',
+            'comment'     => 'コメント',
             'created_at'  => new DateTime(),
             'updated_at'  => new DateTime(),
         ]);

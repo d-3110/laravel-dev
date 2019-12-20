@@ -28,7 +28,7 @@
                 <profile-chart :personality="user.profile"></profile-chart>
               </div>
               <div class="card-body">
-                <a :href='`profiles/${user.id}`'>もっと詳しく</a>
+                <a :href='`/profiles/${user.id}`'>もっと詳しく</a>
                 <button @click="flip(index)" type="button" class="flipControl btn btn-primary flip_btn"><i class="fa fa-chevron-left"></i></button>
               </div>
             </div>
