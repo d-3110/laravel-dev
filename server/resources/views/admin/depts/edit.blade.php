@@ -3,16 +3,17 @@
     $url = 'admin/depts/'. $dept->id;
 @endphp
 
-@extends('layouts.template')
+@extends('admin.layouts.template')
 
 @section('title','タイトル')
 @section('description','ディスクリプション')
 @include('head')
 
 @section('content')
-@include('header')
+@include('admin.header')
+@include('admin.sidebar')
 <div id="app" class="container">
-    <h1>{{ $title }}</h1>
+    <h4>{{ $title }}</h4>
     {{ Form::open(['url' => $url, 'method' => 'post']) }}
     @csrf
    <div class="form-group">

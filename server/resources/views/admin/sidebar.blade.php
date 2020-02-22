@@ -1,15 +1,15 @@
 @section('sidebar')
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+<nav class="col-md-2 d-md-block bg-light sidebar">
   <div class="sidebar-sticky">
-    <ul class="nav flex-column">
+    <ul class="nav flex-column mt-3">
       <!-- <li class="nav-item">
         <a class="nav-link active" href="#">
           <span class="fui-home"></span>
           DashBoard
         </a>
       </li> -->
-      <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="dropdown">
+      <li class="nav-link">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
           <span class="fui-user"></span>
           ユーザ管理
         </a>
@@ -18,8 +18,8 @@
           <li><a href="{{ url('admin/users/') }}">一覧</a></li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="dropdown">
+      <li class="nav-link">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
           <span class="fui-gear"></span>
           部署管理
         </a>
@@ -28,8 +28,8 @@
           <li><a href="{{ url('admin/depts/') }}">一覧</a></li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="dropdown">
+      <li class="nav-link">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
           <span class="fui-gear"></span>
           職種管理
         </a>
@@ -39,13 +39,13 @@
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('admin/work_time/aggregate') }}">
+        <a class="nav-link" href="{{ url('admin/work_time/aggregate/') }}">
           <span class="fui-calendar"></span>
           当月勤怠表
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('admin/work_time/aggregate') }}">
+        <a class="nav-link" href="{{ url('admin/holidays/') }}">
           <span class="fui-calendar"></span>
           有休申請中一覧
         </a>

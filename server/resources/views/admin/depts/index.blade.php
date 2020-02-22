@@ -2,15 +2,17 @@
     $title = __('部署一覧');
 @endphp
 
-@extends('layouts.template')
+@extends('admin.layouts.template')
 
 @section('title','タイトル')
 @section('description','ディスクリプション')
 @include('head')
 
 @section('content')
-@include('header')
-    <div id="app" class="container table-responsive table">
+@include('admin.header')
+@include('admin.sidebar')
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div id="app" class="container mt-5">
         <h4>部署一覧</h4>
         <table class="table table-striped">
             <thead>
@@ -65,5 +67,6 @@
         {{ $depts->links('pagination.default') }}
     </div>
 </div>
+</main>
 @include('script')
 @endsection

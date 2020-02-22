@@ -28,9 +28,9 @@
   <h4>
     <p>{{ $user->profile->name }}</p>
     @if($non_self)
-    <a class="btn btn-primary" href="{{ url('work_time/'.$current_ymd. '/create?user_id='.$user->id) }}">勤怠入力</a>
+    <a class="btn btn-primary" href="{{ url('work_time/create/'.$current_ymd. '?user_id='.$user->id) }}">勤怠入力</a>
     @else
-    <a class="btn btn-primary" href="{{ url('work_time/'.$current_ymd. '/create') }}">勤怠入力</a>
+    <a class="btn btn-primary" href="{{ url('work_time/create/'.$current_ymd. '/') }}">勤怠入力</a>
     @endif
   </h4>
   <table class="table table-hover table-sm">

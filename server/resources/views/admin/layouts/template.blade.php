@@ -7,7 +7,7 @@
         <header>
             @yield('header')
         </header>
-        <div id="wrapper" class="row">
+        <div id="wrapper" class="row min-vh-100">
             @yield('sidebar')
             @yield('content')
         </div>

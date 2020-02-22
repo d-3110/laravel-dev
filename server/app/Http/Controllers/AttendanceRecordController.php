@@ -52,8 +52,13 @@ class AttendanceRecordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $year, $month, $day)
+    public function create(Request $request, $year = '', $month = '', $day = '')
     {
+        // デフォルト値を現在日付で設定
+        $year = $year ?: Carbon::today()->year;
+        $month = $month ?: Carbon::today()->month;
+        $day = $day ?: Carbon::today()->day;
+        
         list($user, $non_self) = User::getUserOrNonSelf($request);
         // ルートパラメータの日付をdate型に変換しておく
         $date = Carbon::createMidnightDate($year, $month, $day)->format('Y-m-d');

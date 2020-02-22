@@ -1,5 +1,5 @@
 @php
-    $title = __('有給申請');
+    $title = __('有休申請');
     $url = 'holidays/app';
 @endphp
 
@@ -12,7 +12,7 @@
 @section('content')
 @include('header')
 <div id="app" class="container">
-  <h1>{{ $title }}</h1>
+  <h4>{{ $title }}</h4>
   @if ($errors->any())
   <div class="alert alert-danger">
     <ul>
