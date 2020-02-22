@@ -23,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // herokuでmysq使うときに必要
-        Schema::defaultStringLength(191);
+        //
     }
 }
