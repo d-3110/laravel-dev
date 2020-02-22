@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\AttendanceRecord;
+use App\User;
 use Carbon\Carbon;
 
 class AttendanceRecordController extends Controller
@@ -15,24 +16,21 @@ class AttendanceRecordController extends Controller
      * @param  int  $year $month $day
      * @return \Illuminate\Http\Response
      */
-    public function index($year = '', $month = '', $day = '')
+    public function index(Request $request, $year = '', $month = '', $day = '')
     {
         // デフォルト値を現在日付で設定
         $year = $year ?: Carbon::today()->year;
         $month = $month ?: Carbon::today()->month;
         $day = $day ?: Carbon::today()->day;
         
-        // ログインユーザ取得
-        $user = Auth::user();
-        $user_id = $user->id;
-
         $current_date = compact('year', 'month', 'day');
 
         // 現在日付取得
         $today = Carbon::parse($year.'-'.$month.'-'.$day)->format('Y-m-d');
         
+        list($user, $non_self) = User::getUserOrNonSelf($request);
         // 勤怠情報を取得
-        $records = AttendanceRecord::where('user_id', $user_id)
+        $records = AttendanceRecord::where('user_id', $user->id)
                                                   ->whereYear('date', $year)
                                                   ->whereMonth('date', $month)
                                                   ->get();
@@ -46,7 +44,7 @@ class AttendanceRecordController extends Controller
         // 月合計を作成
         $total = AttendanceRecord::makeTotal($records);
 
-        return view('attendance_records.index', compact('current_date', 'prev_date', 'next_date', 'calendar', 'total'));
+        return view('attendance_records.index', compact('non_self', 'user', 'current_date', 'prev_date', 'next_date', 'calendar', 'total'));
     }
 
     /**
@@ -54,11 +52,12 @@ class AttendanceRecordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($year, $month, $day)
+    public function create(Request $request, $year, $month, $day)
     {
+        list($user, $non_self) = User::getUserOrNonSelf($request);
         // ルートパラメータの日付をdate型に変換しておく
         $date = Carbon::createMidnightDate($year, $month, $day)->format('Y-m-d');
-        return view('attendance_records.create', compact('date'));
+        return view('attendance_records.create', compact('non_self', 'user','date'));
     }
 
     /**
@@ -69,35 +68,30 @@ class AttendanceRecordController extends Controller
      */
     public function store(Request $request)
     {
+        list($user, $non_self) = User::getUserOrNonSelf($request, 'post');
+        $user_id = $user->id;
+
         $request->validate([
-            'date'       => 'required|date_format:"Y-m-d"|unique:attendance_records',
+            'date'       => 'required|date_format:"Y-m-d"|unique:attendance_records,date,NULL,user_id,user_id,'.$user_id,
             'start_time' => 'required|date_format:"H:i"',
             'end_time'   => 'required|date_format:"H:i"',
             'break_time' => 'required|date_format:"H:i"',
         ]);
 
-        // ログインユーザ取得
-        $user = Auth::user();
-        $user_id = $user->id;
+        $actual = AttendanceRecord::workTimeCalc($request);
 
-        // 開始時間から終了時間までの時間を算出
-        $start = new Carbon($request->start_time);
-        $end = new Carbon($request->end_time);
-        $total = $start->diffInMinutes($end) / 60;
-
-        // 休憩時間は00：00から何時間かで算出
-        // ex) 00:00 ~ 01:00 = 1h
-        $zero = new Carbon('00:00');
-        $break = new Carbon($request->break_time);
-        $exclusion = $zero->diffInMinutes($break) / 60;
 
         // insertカラム設定
         $record = new AttendanceRecord;
         $record->fill($request->all());
         $record->user_id = $user_id;
-        $record->actual = $total - $exclusion; // 合計時間 - 休憩時間 = 実働時間
+        $record->actual = $actual;
         $record->save();
 
+        // 他ユーザの勤怠を登録した場合
+        if ($non_self) {
+            return redirect()->route('records.index', compact('user_id'));
+        }
         return redirect()->route('records.index');
     }
 
@@ -110,6 +104,11 @@ class AttendanceRecordController extends Controller
     public function edit($id)
     {
         $record = AttendanceRecord::find($id);
+        $current_user = Auth::user();
+        // adminユーザでなく、他人の勤怠は編集させない
+        if ($record->user_id !== $current_user->id && $current_user->is_admin !== 1) {
+            return back();
+        }
         return view('attendance_records.edit', compact('record'));
     }
 
@@ -123,8 +122,18 @@ class AttendanceRecordController extends Controller
     public function update(Request $request, $id)
     {
         $record = AttendanceRecord::find($id);
+        $actual = AttendanceRecord::workTimeCalc($request);
+        $crrent_user = Auth::user();
+
         $record->fill($request->all());
+        $record->actual = $actual;
         $record->save();
+
+        // 他ユーザの勤怠を更新した場合
+        if ($record->user_id !== $crrent_user->user_id) {
+            $user_id = $record->user_id;
+            return redirect()->route('records.index', compact('user_id'));
+        }
         return redirect()->route('records.index');
     }
 
@@ -137,7 +146,15 @@ class AttendanceRecordController extends Controller
     public function destroy($id)
     {
         $record = AttendanceRecord::find($id);
+        $crrent_user = Auth::user();
+
         $record->delete();
+
+        // 他ユーザの勤怠を削除した場合
+        if ($record->user_id !== $crrent_user->user_id) {
+            $user_id = $record->user_id;
+            return redirect()->route('records.index', compact('user_id'));
+        }
         return redirect()->route('records.index');
     }
 }

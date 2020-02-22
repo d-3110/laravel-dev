@@ -21,7 +21,7 @@ class CreateAttendanceRecordsTable extends Migration
             $table->time('start_time');
             $table->time('break_time');
             $table->time('end_time');
-            $table->float('actual', 3, 2);
+            $table->float('actual', 4, 2);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

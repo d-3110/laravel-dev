@@ -1,6 +1,6 @@
 @php
     $title = __('勤怠編集');
-    $url = 'work_time/edit';
+    $url = url()->current();
 @endphp
 
 @extends('layouts.template')
@@ -26,7 +26,7 @@
   @csrf
   <div class="form-group">
     {{ Form::label('edit_date', 'date', ['class' => 'col-form-label']) }}
-    {{ Form::date('date', $record->date, ['id' => 'edit_date', 'class' => 'form-control']) }}
+    {{ Form::date('date', $record->date, ['id' => 'edit_date', 'class' => 'form-control', 'disabled' => 'disabled' ]) }}
   </div>
   <div class="form-group">
     {{ Form::label('edit_start_time', 'start_time', ['class' => 'col-form-label']) }}
@@ -41,6 +41,7 @@
     {{ Form::time('end_time', $record->end_time , ['id' => 'edit_end_time', 'class' => 'form-control', 'step' => '900']) }}
   </div>
   <div class="form-group">
+    {{ Form::hidden('_method', 'patch') }}
     {{ Form::submit('UPDATE', ['class' => 'btn btn-primary', 'onfocus' => 'this.blur();']) }}
   </div>
   {{ Form::close() }}

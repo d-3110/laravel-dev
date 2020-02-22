@@ -10,8 +10,9 @@
 
 @section('content')
 @include('header')
-    <div id="app" class="col-sm-12 clearfix">
-        <!-- 検索フォーム　-->
+<div id="app" class="container">
+    <!-- 検索フォーム -->
+    <div class="col-sm-12 clearfix">
         <div class="float-right clearfix">
             <form class="form-inline" action="{{url('admin/users')}}">
                 @csrf
@@ -25,7 +26,6 @@
             </div>
         </div>
     </div>
-
     <div class="table-responsive table">
         <table class="table table-striped">
             <thead>
@@ -82,9 +82,10 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-center pagination">
-        {{ $users->links('pagination.default') }}
-    </div>
+</div>
+<div class="d-flex justify-content-center pagination">
+    {{ $users->links('pagination.default') }}
+</div>
 </div>
 @include('script')
 @endsection

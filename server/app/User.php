@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +22,7 @@ class User extends Authenticatable
     // 主キーが整数でない場合
     // protected $keyType = 'string';
 
-    // 複数代入させない属性　主キー
+    // 複数代入させない属性 主キー
     protected $guarded = array('id');
 
     // 自動でタイムスタンプ付与
@@ -126,5 +127,39 @@ class User extends Authenticatable
                      ->orWhere('profiles.name','like','%'.$keyword.'%');
       }
       return $query;
+    }
+
+    /**
+     * パラメータにuser_idがある場合かつ、カレントユーザがadminの場合、
+     * 自分以外のユーザ情報を返却する
+     * それ以外(通常)の場合、カレントユーザ情報を返却する
+     * @param array  $request
+     * @return array $user
+     */
+    public static function getUserOrNonSelf($request, $type = 'get')
+    {
+        $user = Auth::user();
+        // getの場合
+        if ($type === 'get') {
+          // getパラメータにuser_idがない場合
+          if (empty($request->input('user_id'))) return [$user, false];
+          
+          // adminユーザでない場合
+          if ($user->is_admin !== 1) return [$user, false];
+          
+          $user = User::find($request->user_id);
+          return [$user, true];
+
+        // postの場合
+        } else {
+          // getパラメータにuser_idがない場合
+          if (empty($request->user_id)) return [$user, false];
+          
+          // adminユーザでない場合
+          if ($user->is_admin !== 1) return [$user, false];
+          
+          $user = User::find($request->user_id);
+          return [$user, true];
+        }
     }
 }

@@ -26,13 +26,19 @@
     <a href="{{ url($next_url) }}"> >> </a>
   </h3>
   <h4>
+    <p>{{ $user->profile->name }}</p>
+    @if($non_self)
+    <a class="btn btn-primary" href="{{ url('work_time/'.$current_ymd. '/create?user_id='.$user->id) }}">勤怠入力</a>
+    @else
     <a class="btn btn-primary" href="{{ url('work_time/'.$current_ymd. '/create') }}">勤怠入力</a>
+    @endif
   </h4>
   <table class="table table-hover table-sm">
     <tr class="table-success">
       <td>日付</td>
       <td>曜日</td>
       <td>出勤</td>
+      <td>休憩</td>
       <td>退勤</td>
       <td>実働</td>
       <td></td>
@@ -47,6 +53,7 @@
       @endif
       <td>{{ $date['week'] }}</td>
       <td>{{ $date['start_time'] }}</td>
+      <td>{{ $date['break_time'] }}</td>
       <td>{{ $date['end_time'] }}</td>
       <td>{{ $date['actual'] }}</td>
       @if($date['id'] !== 0)
@@ -59,9 +66,15 @@
       @else
         <td>
           <!-- CREATEボタン -->
-          <a href="{{ url('work_time/'.$current_ym. '/'.$date['day']. '/create') }}">
-            <i class="fa fa-pencil"></i>
-          </a>
+          @if($non_self)
+            <a href="{{ url('work_time/'.$current_ym. '/'.$date['day']. '/create?user_id='. $user->id) }}">
+              <i class="fa fa-pencil"></i>
+            </a>
+          @else
+            <a href="{{ url('work_time/'.$current_ym. '/'.$date['day']. '/create') }}">
+              <i class="fa fa-pencil"></i>
+            </a>
+          @endif
         </td>
       @endif
       <td>

@@ -10,7 +10,7 @@ class AttendanceRecord extends Model
     // テーブル名
     protected $table = 'attendance_records';
 
-    // 複数代入させない属性　主キー
+    // 複数代入させない属性 主キー
     protected $guarded = array('id');
 
     // 複数代入する属性
@@ -117,7 +117,7 @@ class AttendanceRecord extends Model
                     $actual = $record->actual;
                 }
             }
-            $calendar[] = compact('id', 'day', 'week', 'start_time', 'end_time', 'actual');
+            $calendar[] = compact('id', 'day', 'week', 'start_time', 'break_time', 'end_time', 'actual');
         }
         return $calendar;
     }
@@ -151,5 +151,28 @@ class AttendanceRecord extends Model
         $next_date['year']  = $next->year;   // 次月 年
         $next_date['month'] = $next->month;  // 次月 月
         return [$prev_date, $next_date];
+    }
+
+    /**
+     * 実働時間を算出する
+     * @param array  $request
+     * @return array $actual
+     */
+    public static function workTimeCalc($request)
+    {
+        // 開始時間から終了時間までの時間を算出
+        $start = new Carbon($request->start_time);
+        $end = new Carbon($request->end_time);
+        $total = $start->diffInMinutes($end) / 60;
+
+        // 休憩時間は00：00から何時間かで算出
+        // ex) 00:00 ~ 01:00 = 1h
+        $zero = new Carbon('00:00');
+        $break = new Carbon($request->break_time);
+        $exclusion = $zero->diffInMinutes($break) / 60;
+        // 合計時間 - 休憩時間 = 実働時間
+        $actual = $total - $exclusion;
+
+        return $actual;
     }
 }

@@ -12,7 +12,8 @@
 @section('content')
 @include('header')
 <div id="app" class="container">
-  <h4>{{ $title }}</h4>
+  <h3>{{ $title }}</h3>
+  <h4><p>{{ $user->profile->name }}</p></h4>
   @if ($errors->any())
   <div class="alert alert-danger">
     <ul>
@@ -24,6 +25,11 @@
   @endif
   {{ Form::open(['url' => $url, 'method' => 'post']) }}
   @csrf
+  @if(!empty($non_self))
+  <div class="form-group">
+    {{ Form::hidden('user_id', $user->id, ['id' => 'create_user_id', 'class' => 'form-control']) }}
+  </div>
+  @endif
   <div class="form-group">
     {{ Form::label('create_date', 'date', ['class' => 'col-form-label']) }}
     {{ Form::date('date', $date, ['id' => 'create_date', 'class' => 'form-control']) }}

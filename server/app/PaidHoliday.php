@@ -10,7 +10,7 @@ class PaidHoliday extends Model
     protected $table = 'paid_holidays';
 
     // カスタムフィールド
-    protected $appends = ['status_name'];
+    protected $appends = ['status_name', 'user_name'];
 
     // 複数代入させない属性　主キー
     protected $guarded = array('id');
@@ -27,8 +27,15 @@ class PaidHoliday extends Model
       return $this->belongsTo('App\User');
     }
 
+    // 設定ファイルからステータスの名称を取得する
     public function getStatusNameAttribute()
     {
         return config('holidaystatus.'.$this->status);
+    }
+
+    // user_nameを取得する
+    public function getUserNameAttribute()
+    {
+        return User::find($this->user_id)->profile->name;
     }
 }

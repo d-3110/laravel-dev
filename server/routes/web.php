@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth', 'can:all-user']], function () {
 
   // 有給一覧
   Route::get('/holidays', 'PaidHolidayController@index')->name('holidays.index');
-  // 有給詳細
-  Route::get('/holidays{id}', 'PaidHolidayController@show')->name('holidays.show');
+  // 有給取り消し
+  Route::post('/holidays/{id}/cancel', 'PaidHolidayController@cancel')->name('holidays.cancel');
   // 有給申請
   Route::get('/holidays/app', 'PaidHolidayController@app')->name('holidays.app');
   Route::post('/holidays/app', 'PaidHolidayController@update')->name('holidays.update');
@@ -103,6 +103,23 @@ Route::group(['middleware' => ['auth', 'can:admin-only']], function () {
 
   // 職種削除
   Route::post('admin/jobs/{id}/delete', 'Admin\JobController@destroy')->name('admin.jobs.destroy');
+
+  // 有給承認
+  Route::get('admin/holidays/', 'Admin\PaidHolidayController@index')->name('admin.holidays.index');
+  Route::post('admin/holidays/{id}/app', 'Admin\PaidHolidayController@app')->name('admin.holidays.app');
+  Route::post('admin/holidays/{id}/cancel', 'Admin\PaidHolidayController@cancel')->name('admin.holidays.cancel');
+
+  // 勤怠ユーザ単位集計
+  Route::get('admin/work_time/aggregate/{year?}/{month?}/{day?}', 'Admin\AttendanceRecordController@aggregate')->name('admin.record.aggregate');
+  // 勤怠一覧・登録・編集・削除は通常会員と同じアクションを使用
+
+  // 勤怠編集
+  Route::get('admin/work_time/{id}/edit', 'AttendanceRecordController@edit')->name('records.edit'); 
+  Route::match(['PUT','PATCH'], 'admin/work_time/{id}/edit', 'AttendanceRecordController@update')
+  ->name('admin.records.update');
+
+  // 勤怠削除
+  Route::post('admin/work_time/{id}/delete', 'AttendanceRecordController@destroy')->name('admin.records.destroy');
 
 });
 

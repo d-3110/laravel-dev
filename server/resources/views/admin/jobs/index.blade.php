@@ -10,7 +10,8 @@
 
 @section('content')
 @include('header')
-    <div id="app" class="table-responsive table">
+    <div id="app" class=" container table-responsive table">
+        <h4>職種一覧</h4>
         <table class="table table-striped">
             <thead>
                 <tr class="table-success">

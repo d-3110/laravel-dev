@@ -29,6 +29,7 @@ class PaidHolidayController extends Controller
         $holidays = PaidHoliday::where('user_id', $user_id)
                                ->where('expire_date', '>', $today)
                                ->Where('status', '<', 2)
+                               ->orderBy('expire_date')
                                ->get();
         // 有給申請中を取得
         $app_count = PaidHoliday::where('status', 1)
@@ -51,10 +52,9 @@ class PaidHolidayController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
+     * 有給申請を反映
+     * use_dateとstatusを更新
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -73,13 +73,33 @@ class PaidHolidayController extends Controller
                              ->whereNull('use_date')
                              ->orderBy('expire_date', 'asc')
                              ->first()->id;
+
+        // 対象の有給レコードを更新する
         $holiday = PaidHoliday::find($id);
-        // $holiday->fill($request->all());
         $holiday->use_date = $request->use_date;
         $holiday->application_date = $today;
         $holiday->comment = $request->comment;
         // 申請中に変更
         $holiday->status = 1;
+        $holiday->save();
+        return redirect()->route('holidays.index');
+    }
+
+    /**
+     * 有給申請を取り消す
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel(Request $request, $id)
+    {
+        // 対象の有給レコードを更新する
+        $holiday = PaidHoliday::find($id);
+        // 未使用に戻す
+        $holiday->status = 0;
+        $holiday->use_date = null;
+        $holiday->comment = null;
         $holiday->save();
         return redirect()->route('holidays.index');
     }

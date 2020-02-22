@@ -10,7 +10,8 @@
 
 @section('content')
 @include('header')
-    <div id="app" class="table-responsive table">
+    <div id="app" class="container table-responsive table">
+        <h4>部署一覧</h4>
         <table class="table table-striped">
             <thead>
                 <tr class="table-success">
@@ -45,7 +46,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">{{ $dept->name }}を削除しましか？</div>
+                                            <div class="modal-body">{{ $dept->name }}を削除しますか？</div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
                                                 <button type="submit" class="btn btn-primary">OK</button>
