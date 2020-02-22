@@ -72755,10 +72755,6 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("div", { staticClass: "card-body" }, [
-                          _c("a", { attrs: { href: "/profiles/" + user.id } }, [
-                            _vm._v("もっと詳しく")
-                          ]),
-                          _vm._v(" "),
                           _c(
                             "button",
                             {
