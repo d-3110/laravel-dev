@@ -35,14 +35,14 @@
   </h4>
   <table class="table table-hover table-sm">
     <tr class="table-success">
-      <td>日付</td>
-      <td>曜日</td>
-      <td>出勤</td>
-      <td>休憩</td>
-      <td>退勤</td>
-      <td>実働</td>
-      <td></td>
-      <td></td>
+      <th>日付</th>
+      <th>曜日</th>
+      <th>出勤</th>
+      <th>休憩</th>
+      <th>退勤</th>
+      <th>実働</th>
+      <th></th>
+      <th></th>
     </tr>
   @foreach($calendar as $date)
     <tr>

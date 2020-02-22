@@ -4,7 +4,7 @@
   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-01"></button>
   <div class="collapse navbar-collapse" id="navbar-collapse-01">
     <ul class="nav navbar-nav mr-auto">
-      <li><a href="#fakelink">hoge<span class="navbar-unread">1</span></a></li>
+      <li><a href="#fakelink">adminhoge<span class="navbar-unread">1</span></a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users</a>
         <span class="dropdown-arrow"></span>

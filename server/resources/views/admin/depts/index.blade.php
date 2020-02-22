@@ -1,5 +1,5 @@
 @php
-    $title = __('Depts');
+    $title = __('部署一覧');
 @endphp
 
 @extends('layouts.template')
@@ -16,7 +16,7 @@
             <thead>
                 <tr class="table-success">
                     <th>{{ __('ID') }}</th>
-                    <th>{{ __('NAME')}}</th>
+                    <th>{{ __('部署名')}}</th>
                     <th></th>
                     <th></th>
                 </tr>

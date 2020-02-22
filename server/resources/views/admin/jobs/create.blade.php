@@ -1,5 +1,5 @@
 @php
-    $title = __('Jobs Create');
+    $title = __('職種 登録');
     $url = 'admin/jobs/create';
 @endphp
 

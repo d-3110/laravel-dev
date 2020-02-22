@@ -10,7 +10,7 @@
 @include('head')
 
 @section('content')
-@include('header')
+@include('admin.header')
 <div id="app" class="container">
   <h3>{{ $title }}</h3>
   <h4><p>{{ $user->profile->name }}</p></h4>

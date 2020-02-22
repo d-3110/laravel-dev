@@ -2,23 +2,25 @@
     $title = __('きんたい');
     $current_ym = "{$current_date['year']}/{$current_date['month']}";
     $current_ymd = "{$current_date['year']}/{$current_date['month']}/{$current_date['day']}";
-    $prev_url = "admin/work_time/list/{$prev_date['year']}/{$prev_date['month']}";
-    $next_url = "admin/work_time/list/{$next_date['year']}/{$next_date['month']}";
+    $prev_url = "admin/work_time/aggregate/{$prev_date['year']}/{$prev_date['month']}";
+    $next_url = "admin/work_time/aggregate/{$next_date['year']}/{$next_date['month']}";
 @endphp
 
-@extends('layouts.template')
+@extends('admin.layouts.template')
 
 
 @section('title','public_user_index')
 @section('description','ディスクリプション')
 @section('page_style')
+  <link rel="stylesheet" href="{{ asset('/css/admin.css') }}">
   <link rel="stylesheet" href="{{ asset('/css/showAttendanceRecord.css') }}">
 @stop
 @include('head')
 
 @section('content')
-@include('header')
-<div id="app" class="container">
+@include('admin.header')
+@include('admin.sidebar')
+<div id="app" class="container col-md-9 ">
   <!-- 月別画面（初期画面) -->
   <h3 class="date_title">
     <a href="{{ url($prev_url) }}"> << </a>
@@ -30,15 +32,19 @@
   </h4>
   <table class="table table-hover table-sm">
     <tr class="table-success">
-      <td>ユーザID</td>
-      <td>ユーザ名</td>
-      <td>実働時間</td>
-      <td></td>
+      <th>{{ __('ID') }}</th>
+      <th>{{ __('NAME') }}</th>
+      <th>{{ __('WORIK ') }}</th>
+      <th></th>
     </tr>
   @foreach($users as $user)
     <tr>
       <td>{{ $user->id }}</td>
-      <td>{{ $user->profile->name }}</td>
+      <td>
+        <a href="{{ url('work_time/list/'.$current_ymd. '?user_id='.$user->id) }}">
+          {{ $user->profile->name }}
+        </a>
+      </td>
       <td>{{ $user->total }}h</td>
       <td></td>
     </tr>

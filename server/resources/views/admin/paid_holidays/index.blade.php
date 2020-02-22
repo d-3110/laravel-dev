@@ -17,14 +17,14 @@
   <h4>申請中一覧</h4>
   <table class="table table-hover table-sm">
     <tr class="table-success">
-      <td>申請日</td>
-      <td>申請者名</td>
-      <td>有効期限</td>
-      <td>使用日</td>
-      <td>コメント</td>
-      <td>状態</td>
-      <td></td>
-      <td></td>
+      <th>申請日</th>
+      <th>申請者名</th>
+      <th>有効期限</th>
+      <th>使用日</th>
+      <th>コメント</th>
+      <th>状態</th>
+      <th></th>
+      <th></th>
     </tr>
     @foreach($holidays as $holiday)
     <tr>

@@ -52,5 +52,6 @@ class AttendanceRecordController extends Controller
             $total += $user->total;
         }
 
-        return view('admin.attendance_records.index', compact('current_date', 'prev_date', 'next_date', 'total', 'users'));
+        return view('admin.attendance_records.aggregate', compact('current_date', 'prev_date', 'next_date', 'total', 'users'));
     }
+}

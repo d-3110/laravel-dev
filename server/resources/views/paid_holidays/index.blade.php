@@ -1,5 +1,5 @@
 @php
-    $title = __('有給');
+    $title = __('有休管理');
 @endphp
 
 @extends('layouts.template')
@@ -22,12 +22,12 @@
   </h3>
   <table class="table table-hover table-sm">
     <tr class="table-success">
-      <td>付与日付</td>
-      <td>有効期限</td>
-      <td>使用日</td>
-      <td>コメント</td>
-      <td>状態</td>
-      <td></td>
+      <th>付与日付</th>
+      <th>有効期限</th>
+      <th>使用日</th>
+      <th>コメント</th>
+      <th>状態</th>
+      <th></th>
     </tr>
     @foreach($holidays as $holiday)
     <tr>

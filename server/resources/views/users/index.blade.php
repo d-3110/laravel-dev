@@ -1,5 +1,5 @@
 @php
-    $title = __('Users');
+    $title = __('ユーザ一覧');
 @endphp
 
 @extends('layouts.template')

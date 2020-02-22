@@ -1,5 +1,5 @@
 @php
-    $title = __('Dept Edit');
+    $title = __('部署 編集');
     $url = 'admin/depts/'. $dept->id;
 @endphp
 

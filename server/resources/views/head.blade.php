@@ -7,10 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <!-- Loading Bootstrap -->
-    @yield('page_style')
     <!-- Loading Flat UI -->
     <link href="/dist/css/flat-ui.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="/dist/img/favicon.ico">
+    @yield('page_style')
 
     <!-- All the files that are required -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">

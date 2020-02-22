@@ -1,5 +1,5 @@
 @php
-    $title = __('Jobs Edit');
+    $title = __('職種 編集');
     $url = 'admin/jobs/'. $job->id;
 @endphp
 

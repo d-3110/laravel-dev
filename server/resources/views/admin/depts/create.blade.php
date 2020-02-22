@@ -1,5 +1,5 @@
 @php
-    $title = __('Depts Create');
+    $title = __('部署 新規登録');
     $url = 'admin/depts/create';
 @endphp
 
