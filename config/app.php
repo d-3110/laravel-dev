@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Dropbox用設定
+        App\Providers\DropboxFilesystemServiceProvider::class,
+
     ],
 
     /*
