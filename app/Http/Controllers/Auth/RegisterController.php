@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/users';
 
     /**
      * Create a new controller instance.
@@ -56,6 +56,16 @@ class RegisterController extends Controller
             'job_id' => ['required', 'integer'],
             // 'is_admin' => ['required', 'boolean'],
         ]);
+    }
+
+    /*
+     * オーバーライドして部署と職種を渡す
+     *
+     */
+    public function showRegistrationForm()
+    {
+        list($depts, $jobs) = User::getArraySelectBox();
+        return view('auth.register', ['depts' => $depts, 'jobs' => $jobs]);;
     }
 
     /**

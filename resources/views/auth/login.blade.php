@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title','register')
+@section('title','login')
 @section('description','ディスクリプション')
 @section('page_style')
     <link rel="stylesheet" href="{{ asset('/css/login.css') }}">

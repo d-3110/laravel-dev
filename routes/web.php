@@ -12,15 +12,9 @@
 */
 
 Route::get('/', function () {
-    // return view('test');
-    // return view('welcome');
-    // return view('top');
-  Route::group(['middleware' => ['auth', 'can:admin-only']], function () {
-    // ユーザ一覧
-    Route::get('admin/users', 'Admin\UserController@index')->name('users.index');
-  });
+  return redirect('login/');
 });
-// Route::resource('users', 'UserController');
+
 
 
 // 一般ユーザ

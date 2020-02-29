@@ -48,7 +48,7 @@
                     </div>
                     <!-- 部署 -->
                     <div class="form-group">
-                        <label for="reg_deptId" class="sr-only">{{ __('Dept ID') }}</label>
+                        <label for="reg_deptId" class="sr-only">{{ __('Jobs ID') }}</label>
                         <select class="form-control form-select" name="dept_id" id="reg_deptId" onchange="changeColor(this)">
                             <option value="" style="display: none;">dept</option>
                         @foreach ($jobs as $key => $job)
@@ -58,7 +58,7 @@
                     </div>
                     <!-- 職種 -->
                     <div class="form-group">
-                        <label for="reg_jobId" class="sr-only">{{ __('Job ID') }}</label>
+                        <label for="reg_jobId" class="sr-only">{{ __('Dept ID') }}</label>
                         <select class="form-control form-select" name="job_id" id="reg_jobId" onchange="changeColor(this)">
                             <option value="" style="display: none;">job</option>
                         @foreach ($depts as $key => $dept)
@@ -88,7 +88,7 @@
 
             </div>
             <div class="etc-login-form">
-                <p>already have an account? <a href="#">login here</a></p>
+                <p>already have an account? <a href="login/">login here</a></p>
             </div>
         {{ Form::close() }}
     </div>

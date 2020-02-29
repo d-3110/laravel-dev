@@ -1,7 +1,7 @@
 
 @extends('layouts.template')
 
-@section('title','register')
+@section('title','forgot password')
 @section('description','ディスクリプション')
 @section('page_style')
     <link rel="stylesheet" href="{{ asset('/css/login.css') }}">
@@ -49,8 +49,8 @@
                 <button type="submit" class="login-button"><i class="fa fare-chevron-right"></i></button>
             </div>
             <div class="etc-login-form">
-                <p>already have an account? <a href="#">login here</a></p>
-                <p>new user? <a href="#">create new account</a></p>
+                <p>already have an account? <a href="login/">login here</a></p>
+                <p>new user? <a href="register/">create new account</a></p>
             </div>
         </form>
     </div>
