@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Profile;
+use League\Flysystem\Filesystem;
+use Spatie\Dropbox\Client as DropboxClient;
+use Spatie\FlysystemDropbox\DropboxAdapter;
+use Storage;
 
 class UserController extends Controller
 {

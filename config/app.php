@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Dropbox用設定
-        App\Providers\DropboxFilesystemServiceProvider::class,
+        App\Providers\DropboxServiceProvider::class,
 
     ],
 

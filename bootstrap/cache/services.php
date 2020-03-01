@@ -34,7 +34,7 @@
     30 => 'App\\Providers\\AuthServiceProvider',
     31 => 'App\\Providers\\EventServiceProvider',
     32 => 'App\\Providers\\RouteServiceProvider',
-    33 => 'App\\Providers\\DropboxFilesystemServiceProvider',
+    33 => 'App\\Providers\\DropboxServiceProvider',
   ),
   'eager' => 
   array (
@@ -58,7 +58,7 @@
     17 => 'App\\Providers\\AuthServiceProvider',
     18 => 'App\\Providers\\EventServiceProvider',
     19 => 'App\\Providers\\RouteServiceProvider',
-    20 => 'App\\Providers\\DropboxFilesystemServiceProvider',
+    20 => 'App\\Providers\\DropboxServiceProvider',
   ),
   'deferred' => 
   array (

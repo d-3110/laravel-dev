@@ -83,8 +83,8 @@ export default {
             formData.append('file',this.img_file)
             axios.post('/api/profiles/fileupload/' + this.user_id, formData).then(response =>{
                 // 親コンポーネントの画像を変更
-                this.file_path = '/storage/profiles/' + this.user_id + '/' +this.img_file.name
-                this.$parent.img_file = this.file_path
+                // this.file_path = '/storage/profiles/' + this.user_id + '/' +this.img_file.name
+                this.$parent.img_file = response.data.link
             });
         }
     }

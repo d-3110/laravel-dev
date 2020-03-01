@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
+use Storage;
 use App\Http\Controllers\Controller;
 use App\Profile;
 
@@ -82,16 +83,35 @@ class ProfileController extends Controller
     {
         $profile = Profile::find($id);
         $user_id = $profile->user_id;
-        $directory = "public/profiles/$user_id/";
+        $directory = "/profiles/$user_id";
         
+        /* dropboxを使用する場合 */
+        // 現在の画像をディレクトリごと削除
+        Storage::disk('dropbox')->deleteDirectory($directory);
+        $file = request()->file('file');
+        $file_name = $file->getClientOriginalName();
+        $path = Storage::disk('dropbox')->putFileAs($directory, $file, $file_name);
+        
+
+        $link = Profile::createSharedLink('/'.$path);
+
+        /* Laravelのファイルシステムを使用する場合
+         *
+
         // 現在の画像をディレクトリごと削除
         Storage::deleteDirectory($directory);
         // ストレージに画像を格納
         $file_name = request()->file->getClientOriginalName();
         request()->file->storeAs($directory, $file_name);
 
+        *
+        */
+
         // テーブルにファイル名保存
-        $profile->update(['img_file' => '/storage/profiles/'.$user_id.'/'.$file_name]);
+        $profile->update(['img_file' => $link]);
+
+        $res = ['link' => $link];
+        return json_encode($res);
     }
 
     /**

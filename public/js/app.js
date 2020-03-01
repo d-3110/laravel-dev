@@ -1992,8 +1992,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('file', this.img_file);
       axios.post('/api/profiles/fileupload/' + this.user_id, formData).then(function (response) {
         // 親コンポーネントの画像を変更
-        _this2.file_path = '/storage/profiles/' + _this2.user_id + '/' + _this2.img_file.name;
-        _this2.$parent.img_file = _this2.file_path;
+        // this.file_path = '/storage/profiles/' + this.user_id + '/' +this.img_file.name
+        _this2.$parent.img_file = response.data.link;
       });
     }
   }
