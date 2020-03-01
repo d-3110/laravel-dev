@@ -27,7 +27,7 @@
     <a href="{{ url($next_url) }}"> >> </a>
   </h3>
   <h4>
-    <a class="btn btn-primary" href="{{ url('admin/work_time/'.$current_ymd. '/create') }}">勤怠入力</a>
+    <a class="btn btn-primary" href="{{ url('/work_time/create/'.$current_ymd) }}">勤怠入力</a>
   </h4>
   <table class="table table-hover table-sm">
     <tr class="table-success">

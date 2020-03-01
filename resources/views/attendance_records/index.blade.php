@@ -67,11 +67,11 @@
         <td>
           <!-- CREATEボタン -->
           @if($non_self)
-            <a href="{{ url('work_time/'.$current_ym. '/'.$date['day']. '/create?user_id='. $user->id) }}">
+            <a href="{{ url('work_time/create/'.$current_ym. '/'.$date['day']. '/?user_id='. $user->id) }}">
               <i class="fa fa-pencil"></i>
             </a>
           @else
-            <a href="{{ url('work_time/'.$current_ym. '/'.$date['day']. '/create') }}">
+            <a href="{{ url('work_time/create/'.$current_ym. '/'.$date['day']) }}">
               <i class="fa fa-pencil"></i>
             </a>
           @endif
