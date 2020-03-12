@@ -1,7 +1,12 @@
-_@extends('layouts.app')
+@extends('layouts.template')
 
-@section('content')
-<div class="container">
+@section('title','forgot password')
+@section('description','パスワードリセットメール送信')
+@section('page_style')
+    <link rel="stylesheet" href="{{ asset('/css/login.css') }}">
+@stop
+@include('head')
+<div class="text-center" style="padding:50px 0">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -62,4 +67,4 @@ _@extends('layouts.app')
         </div>
     </div>
 </div>
-@endsection
+@include('script')
