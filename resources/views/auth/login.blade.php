@@ -9,9 +9,16 @@
 <!-- LOGIN FORM -->
 <div class="text-center" style="padding:50px 0">
     <div class="logo">login</div>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      demoユーザでログインする場合は
+      <a href="javascript:void(0)" onclick="demoClick();">こちら</a>
+    </div>
     <!-- Main Form -->
     <div class="login-form-1">
-        <form id="login-form" class="text-left" method="POST" action="{{ route('login') }}">
+        <form id="login_form" class="text-left" method="POST" action="{{ route('login') }}">
         @csrf
             <div class="login-form-main-message"></div>
             <div class="main-login-form">
@@ -34,10 +41,10 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="form-group login-group-checkbox">
+                    <!-- <div class="form-group login-group-checkbox">
                         <input type="checkbox" id="lg_remember" name="lg_remember">
                         <label for="lg_remember">remember</label>
-                    </div>
+                    </div> -->
                 </div>
                 <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
             </div>
@@ -49,3 +56,11 @@
     </div>
     <!-- end:Main Form -->
 </div>
+@include('script')
+<script>
+function demoClick(){
+    document.forms.login_form.lg_username.value = "demo@demo.jp";
+    document.forms.login_form.lg_password.value = "password";
+    $('.alert').alert('close');
+}
+</script>
