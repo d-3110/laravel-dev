@@ -25,3 +25,14 @@ Route::group(['middleware' => ['api']], function(){
   // ユーザ一覧表示
   Route::get('users/', 'Api\UserController@index');
 });
+
+// 認証前もアクセス可能
+Route::group(['middleware' => 'guest:api'], function () {
+  Route::post('auth/login', 'Api\AuthController@login');
+});
+// 認証後のみアクセス可能
+Route::group(['middleware' => 'auth:api'], function () {
+  Route::post('auth/me', 'Api\AuthController@me');
+  Route::post('auth/logout', 'Api\AuthController@logout');
+  Route::post('auth/refresh', 'Api\AuthController@refresh');
+});

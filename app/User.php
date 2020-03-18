@@ -8,8 +8,9 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -59,6 +60,18 @@ class User extends Authenticatable
     public function PaidHoliday()
     {
         return $this->hasMany('App\PaidHoliday');
+    }
+
+    public function getJWTIdentifier()
+    {
+        // JWT トークンに保存する ID を返す
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        // JWT トークンに埋め込む追加の情報を返す
+        return [];
     }
 
     // protected $hidden = [
