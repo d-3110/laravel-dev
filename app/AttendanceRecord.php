@@ -175,4 +175,78 @@ class AttendanceRecord extends Model
 
         return $actual;
     }
+
+    /**
+     * [API用]
+     * 今日の勤怠があるかを判定する
+     * @param array  $user_id
+     * @return bool  存在する:true 存在しない:false
+     */
+    public static function todayExistsRecord($user_id)
+    {
+        $year = Carbon::today()->year;
+        $month = Carbon::today()->month;
+        $day = Carbon::today()->day;
+        // 勤怠情報を取得
+        $records = AttendanceRecord::where('user_id', $user_id)
+                                                  ->whereYear('date', $year)
+                                                  ->whereMonth('date', $month)
+                                                  ->whereDay('date', $day)
+                                                  ->get();
+        if (!$records->isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * [API用]
+     * 実働計算、出勤/退勤時間を調整する
+     * @param array  $user_id
+     * @return bool
+     */
+    public static function roundWorkTime($start_time, $end_time, $break_time)
+    {
+        // 開始時間から終了時間までの時間を算出
+        $start = AttendanceRecord::floorPerTime($start_time);
+        $end = AttendanceRecord::floorPerTime($end_time);
+        $total = $start->diffInMinutes($end) / 60;
+
+        // 休憩時間は00：00から何時間かで算出
+        // ex) 00:00 ~ 01:00 = 1h
+        $zero = new Carbon('00:00');
+        $break = new Carbon($break_time);
+
+        $exclusion = $zero->diffInMinutes($break) / 60;
+        // 合計時間 - 休憩時間 = 実働時間
+        $actual = $total - $exclusion;
+
+        return [$actual, $start, $end];
+
+    }
+
+    /**
+     * 時間(hhmm)を指定した15分単位で切り捨てる
+     * 
+     * @param $time 
+     * @return $time
+     */
+    public static function floorPerTime($time)
+    {   
+        $time = new Carbon($time);
+        // 0~14分 => 0分
+        if ($time->minute < 15) {
+            $time->minute = 0;
+        // 15~29分 => 15分
+        } else if ($time->minute < 30){
+            $time->minute = 15;
+        // 30~44分 => 30分
+        } else if ($time->minute < 45) {
+            $time->minute = 30;
+        // 45~59分 => 45分
+        } else if ($time->minute <= 59) {
+            $time->minute = 45;
+        }
+        return $time;
+    }
 }
