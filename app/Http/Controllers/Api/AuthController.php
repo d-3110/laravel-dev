@@ -23,7 +23,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!$token = auth($this->guard)->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['success' => true, 'message' => '認証に失敗しました'],401,[],JSON_UNESCAPED_UNICODE);
         }
  
         return $this->respondWithToken($token);
@@ -32,28 +32,18 @@ class AuthController extends Controller
     // 自身のユーザデータを取得
     public function me()
     {
-        $user = auth($this->guard)->user()->profile;
-        $exit_record = AttendanceRecord::todayExistsRecord($user['id']);
-
-        // 必要な情報のみにする
-        $result = ['user_id' => $user['id'],
-                   'name'    => $user['name'],
-                   'exit_record' => $exit_record
-                  ];
-        return response()->json($result);
+        return response()->json(auth($this->guard)->user());
     }
 
     // 勤怠保存
     public function store()
     {
-
-
         $user = auth($this->guard)->user();
         $user_id = $user['id'];
         
         $exits = AttendanceRecord::todayExistsRecord($user_id);
         if ($exits) {
-            return response()->json(['message' => 'すでに退勤しています。']);
+            return response()->json(['success' => false, 'message' => '今日はすでに退勤しています'],200,[],JSON_UNESCAPED_UNICODE);
         }
 
         $date = Carbon::today()->format('Y-m-d');
@@ -74,7 +64,12 @@ class AuthController extends Controller
         $record->actual = $actual;
         $result = $record->save();
 
-        return response()->json(['success' => $result]);
+        // save失敗
+        if (!$result) {
+            return response()->json(['success' => false, 'message' => 'DBへの保存に失敗しました'],200,[],JSON_UNESCAPED_UNICODE);
+        }
+        // save成功
+        return response()->json(['success' => true, 'message' => 'お疲れ様でした'],200,[],JSON_UNESCAPED_UNICODE);
     }
  
     public function logout()
@@ -91,10 +86,21 @@ class AuthController extends Controller
  
     protected function respondWithToken($token)
     {
+        $user = auth($this->guard)->user()->profile;
+        $exits = AttendanceRecord::todayExistsRecord($user['id']);
+
+        // 必要な情報のみにする
+        $user = ['id' => $user['id'],
+                 'name' => $user['name'],
+                ];
+
         return response()->json([
-            'access_token' => $token,
+            'token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth($this->guard)->factory()->getTTL() * 60
-        ]);
+            'expires_in' => auth($this->guard)->factory()->getTTL() * 60,
+            'success' => true,
+            'user' => $user,
+            'exits' => $exits
+        ],200,[],JSON_UNESCAPED_UNICODE);
     }
 }
