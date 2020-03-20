@@ -101,6 +101,6 @@ class AuthController extends Controller
             'success' => true,
             'user' => $user,
             'exits' => $exits
-        ],200,[],JSON_UNESCAPED_UNICODE);
+        ],200,[],JSON_UNESCAPED_UNICODE)->header('Content-Type', 'text/html; charset=utf8');
     }
 }
