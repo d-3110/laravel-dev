@@ -32,8 +32,10 @@ Route::group(['middleware' => 'guest:api'], function () {
 });
 // 認証後のみアクセス可能
 Route::group(['middleware' => 'auth:api'], function () {
-  Route::post('auth/me', 'Api\AuthController@me');
-  Route::post('auth/logout', 'Api\AuthController@logout');
-  Route::post('auth/refresh', 'Api\AuthController@refresh');
-  Route::post('auth/store', 'Api\AuthController@store');
+  Route::middleware(['jwt_access'])->group(function () {
+    Route::post('auth/me', 'Api\AuthController@me');
+    Route::post('auth/logout', 'Api\AuthController@logout');
+    Route::post('auth/refresh', 'Api\AuthController@refresh');
+    Route::post('auth/store', 'Api\AuthController@store');
+  });
 });
