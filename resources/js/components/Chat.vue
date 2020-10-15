@@ -1,5 +1,5 @@
 <template>
-  <sction>
+  <section class="chatWrap">
     <div id="chat" class="card chat-card px-2">
       <!-- ロード画面 -->
       <div class="d-flex justify-content-center mt-auto">
@@ -29,7 +29,7 @@
         <i class="fa fa-paper-plane"></i>
       </button>
     </div>
-  </sction>
+  </section>
 </template>
 
 <script>
@@ -49,7 +49,12 @@
         .listen('MessageCreated', (e) => {
             // 全メッセージを再読込
             this.getMessages();
-        });
+        })
+    },
+    updated: function () {
+      this.$nextTick(function () {
+        this.scrollToEnd()
+      })
     },
     methods: {
       send() {
@@ -71,10 +76,16 @@
         axios.get('/api/chat/' + this.group_id).then(res => {
           this.messages = res.data
           this.loading = false
+          this.scrollBottom();
         })
         .catch(err => {
         this.loading = false
         })
+      },
+      scrollToEnd() {
+        console.log('dfsfafad')
+        var container = this.$el.querySelector("#chat")
+        container.scrollTop = container.scrollHeight;
       }
     }
   }

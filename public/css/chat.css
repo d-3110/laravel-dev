@@ -1,11 +1,14 @@
 @charset "UTF-8";
 
-.chat-card {
+.chatWrap {
+  margin: 0 auto;
   max-width: 600px;
+}
+
+.chat-card {
   height: 660px;
   overflow-y: scroll;
   position: relative;
-  margin: 0 auto;
 }
 
 .message-area {

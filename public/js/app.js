@@ -1956,6 +1956,11 @@ __webpack_require__.r(__webpack_exports__);
       _this.getMessages();
     });
   },
+  updated: function updated() {
+    this.$nextTick(function () {
+      this.scrollToEnd();
+    });
+  },
   methods: {
     send: function send() {
       var _this2 = this;
@@ -1981,9 +1986,16 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/chat/' + this.group_id).then(function (res) {
         _this3.messages = res.data;
         _this3.loading = false;
+
+        _this3.scrollBottom();
       })["catch"](function (err) {
         _this3.loading = false;
       });
+    },
+    scrollToEnd: function scrollToEnd() {
+      console.log('dfsfafad');
+      var container = this.$el.querySelector("#chat");
+      container.scrollTop = container.scrollHeight;
     }
   }
 });
@@ -78172,7 +78184,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("sction", [
+  return _c("section", { staticClass: "chatWrap" }, [
     _c("div", { staticClass: "card chat-card px-2", attrs: { id: "chat" } }, [
       _c("div", { staticClass: "d-flex justify-content-center mt-auto" }, [
         _vm.loading
