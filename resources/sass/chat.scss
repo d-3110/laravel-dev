@@ -1,6 +1,7 @@
 .chat-card {
   max-width: 600px;
-  min-height: 745px;
+  height: 660px;
+  overflow-y: scroll;
   position: relative;
   margin: 0 auto;
 }

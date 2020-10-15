@@ -1,30 +1,35 @@
 <template>
-  <div id="chat" class="card mb-5 chat-card px-2">
-    <!-- ロード画面 -->
-    <div v-if="loading" class="spinner-border text-primary profile_spiner" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-    <div v-for="m in messages" class="balloon">
-      <div v-if="m.user_id != user_id" class="faceicon">
-        <img :src="m.img_file" alt="profile_img">
-      </div>
-      <div v-if="m.user_id != user_id" class="chatting">
-        <div class="says">
-          <p v-text="m.body"></p>
+  <sction>
+    <div id="chat" class="card chat-card px-2">
+      <!-- ロード画面 -->
+      <div class="d-flex justify-content-center mt-auto">
+        <div v-if="loading" class="spinner-border text-primary profile_spiner " role="status">
+          <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <div v-else class="mycomment">
-          <p v-text="m.body"></p>
+      <div class="d-flex flex-column mt-auto">
+        <div v-for="m in messages" class="balloon">
+          <div v-if="m.user_id != user_id" class="faceicon">
+            <img :src="m.img_file" alt="profile_img">
+          </div>
+          <div v-if="m.user_id != user_id" class="chatting">
+            <div class="says">
+              <p v-text="m.body"></p>
+            </div>
+          </div>
+          <div v-else class="mycomment">
+              <p v-text="m.body"></p>
+          </div>
+        </div>
       </div>
     </div>
-
     <div class="d-flex justify-content-center">
       <textarea v-model="message" class="message-area" @keyup.ctrl.enter="send()"></textarea>
       <button type="button" @click="send()" class="btn btn-primary">
         <i class="fa fa-paper-plane"></i>
       </button>
     </div>
-  </div>
+  </sction>
 </template>
 
 <script>

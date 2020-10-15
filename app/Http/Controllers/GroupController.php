@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Group;
 use App\GroupUser;
@@ -17,11 +18,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::id();
-        $groups = Group::select('groups.id', 'groups.name')
-                    ->join('group_user', 'group_user.group_id', '=', 'groups.id')
-                    ->where('user_id', $user_id)
-                    ->paginate(10);
+        $groups = Auth::user()->group()->paginate(10);
         return view('groups.index', compact('groups'));
     }
 
@@ -47,22 +44,31 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $group = new Group;
-        $name = $request->user_id. ' and '. $request->partner_user_id;
-        $group->name = $name;
-        $group->save();
+        DB::beginTransaction();
+        try{
 
-        // 中間テーブルに保存
-        // 自分を登録
-        $user_group = new GroupUser;
-        $user_group->user_id = $request->user_id;
-        $user_group->group_id = $group->id;
-        $user_group->save();
-        // 相手を登録
-        $user_group = new GroupUser;
-        $user_group->user_id = $request->partner_user_id;
-        $user_group->group_id = $group->id;
-        $user_group->save();
+            $group = new Group;
+            $name = $request->user_id. ' and '. $request->partner_user_id;
+            $group->name = $name;
+            $group->save();
+
+            // 中間テーブルに保存
+            // 自分を登録
+            $user_group = new GroupUser;
+            $user_group->user_id = $request->user_id;
+            $user_group->group_id = $group->id;
+            $user_group->save();
+            // 相手を登録
+            $user_group = new GroupUser;
+            $user_group->user_id = $request->partner_user_id;
+            $user_group->group_id = $group->id;
+            $user_group->save();
+
+        }catch(Exception $e){
+            DB::rollback();
+            return back()->withInput();
+        }
+        DB::commit();
 
         return redirect()->route('group.index');
     }

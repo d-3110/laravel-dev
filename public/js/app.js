@@ -1932,6 +1932,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['group_id', 'user_id'],
   data: function data() {
@@ -78167,92 +78172,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "card mb-5 chat-card px-2", attrs: { id: "chat" } },
-    [
-      _vm.loading
-        ? _c(
-            "div",
-            {
-              staticClass: "spinner-border text-primary profile_spiner",
-              attrs: { role: "status" }
-            },
-            [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
-          )
-        : _vm._e(),
+  return _c("sction", [
+    _c("div", { staticClass: "card chat-card px-2", attrs: { id: "chat" } }, [
+      _c("div", { staticClass: "d-flex justify-content-center mt-auto" }, [
+        _vm.loading
+          ? _c(
+              "div",
+              {
+                staticClass: "spinner-border text-primary profile_spiner ",
+                attrs: { role: "status" }
+              },
+              [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+            )
+          : _vm._e()
+      ]),
       _vm._v(" "),
-      _vm._l(_vm.messages, function(m) {
-        return _c("div", { staticClass: "balloon" }, [
-          m.user_id != _vm.user_id
-            ? _c("div", { staticClass: "faceicon" }, [
-                _c("img", { attrs: { src: m.img_file, alt: "profile_img" } })
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          m.user_id != _vm.user_id
-            ? _c("div", { staticClass: "chatting" }, [
-                _c("div", { staticClass: "says" }, [
+      _c(
+        "div",
+        { staticClass: "d-flex flex-column mt-auto" },
+        _vm._l(_vm.messages, function(m) {
+          return _c("div", { staticClass: "balloon" }, [
+            m.user_id != _vm.user_id
+              ? _c("div", { staticClass: "faceicon" }, [
+                  _c("img", { attrs: { src: m.img_file, alt: "profile_img" } })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            m.user_id != _vm.user_id
+              ? _c("div", { staticClass: "chatting" }, [
+                  _c("div", { staticClass: "says" }, [
+                    _c("p", { domProps: { textContent: _vm._s(m.body) } })
+                  ])
+                ])
+              : _c("div", { staticClass: "mycomment" }, [
                   _c("p", { domProps: { textContent: _vm._s(m.body) } })
                 ])
-              ])
-            : _c("div", { staticClass: "mycomment" }, [
-                _c("p", { domProps: { textContent: _vm._s(m.body) } })
-              ])
-        ])
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "d-flex justify-content-center" }, [
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.message,
+            expression: "message"
+          }
+        ],
+        staticClass: "message-area",
+        domProps: { value: _vm.message },
+        on: {
+          keyup: function($event) {
+            if (
+              !$event.type.indexOf("key") &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            if (!$event.ctrlKey) {
+              return null
+            }
+            return _vm.send()
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.message = $event.target.value
+          }
+        }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "d-flex justify-content-center" }, [
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.message,
-              expression: "message"
-            }
-          ],
-          staticClass: "message-area",
-          domProps: { value: _vm.message },
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { type: "button" },
           on: {
-            keyup: function($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              if (!$event.ctrlKey) {
-                return null
-              }
+            click: function($event) {
               return _vm.send()
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.message = $event.target.value
             }
           }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.send()
-              }
-            }
-          },
-          [_c("i", { staticClass: "fa fa-paper-plane" })]
-        )
-      ])
-    ],
-    2
-  )
+        },
+        [_c("i", { staticClass: "fa fa-paper-plane" })]
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
