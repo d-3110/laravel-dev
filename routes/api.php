@@ -24,6 +24,8 @@ Route::group(['middleware' => ['api']], function(){
   Route::post('profiles/fileupload/{profile}', 'Api\ProfileController@fileUpload');
   // ユーザ一覧表示
   Route::get('users/', 'Api\UserController@index');
+  Route::get('chat/{id}', 'Api\ChatController@show');
+  Route::post('chat/', 'Api\ChatController@create');
 });
 
 // 認証前もアクセス可能

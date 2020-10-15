@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfilesTableSeeder::class);
         $this->call(AttendanceRecordsTableSeeder::class);
         $this->call(PaidHolidaysTableSeeder::class);
+        $this->call(GroupsTableSeeder::class);
+        $this->call(GroupUserTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
     }
 }

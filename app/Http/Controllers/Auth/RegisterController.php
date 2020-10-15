@@ -64,7 +64,8 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        list($depts, $jobs) = User::getArraySelectBox();
+        $jobs = User::getArraySelectBox('App\Job');
+        $depts = User::getArraySelectBox('App\Dept');
         return view('auth.register', ['depts' => $depts, 'jobs' => $jobs]);;
     }
 

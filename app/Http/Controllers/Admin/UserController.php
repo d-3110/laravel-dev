@@ -21,7 +21,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        list($depts, $jobs) = User::getArraySelectBox();
+        $jobs = User::getArraySelectBox('App\Job');
+        $depts = User::getArraySelectBox('App\Dept');
 
         // 利用するときはEloquentモデルやクエリビルダーから、scope接頭語を外して呼び出す
         $users = User::deptFilter(request('dept_id'))  // 部署で絞り込み
@@ -42,7 +43,8 @@ class UserController extends Controller
      */
     public function filter(Request $request)
     {
-        list($depts, $jobs) = User::getArraySelectBox();
+        $jobs = User::getArraySelectBox('App\Job');
+        $depts = User::getArraySelectBox('App\Dept');
         return view('admin.users.filter', ['depts' => $depts, 'jobs' => $jobs]);
     }
 
@@ -53,7 +55,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        list($depts, $jobs) = User::getArraySelectBox();
+        $jobs = User::getArraySelectBox('App\Job');
+        $depts = User::getArraySelectBox('App\Dept');
         return view('admin.users.create', ['depts' => $depts, 'jobs' => $jobs]);
     }
 
@@ -96,7 +99,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        list($depts, $jobs) = User::getArraySelectBox();
+        $jobs = User::getArraySelectBox('App\Job');
+        $depts = User::getArraySelectBox('App\Dept');
         return view('admin.users.edit', ['user' => $user, 'depts' => $depts, 'jobs' => $jobs]);
     }
 

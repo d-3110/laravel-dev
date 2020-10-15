@@ -1,0 +1,63 @@
+.flip {
+  -webkit-perspective: 800;
+  perspective: 800;
+  position: relative;
+  text-align: center;
+
+  .card.flipped {
+    -webkit-transform: rotatey(180deg);
+    transform: rotatey(180deg);
+  }
+}
+
+.card {
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+  transform-style: preserve-3d;
+  transition: 0.5s;
+}
+
+.flip .card {
+  .face {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 2;
+  }
+
+  .front {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .back {
+    -webkit-transform: rotatey(-180deg);
+    transform: rotatey(-180deg);
+  }
+}
+
+.flipControl {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.card-body .flip_btn {
+  border-radius: 50%;
+}
+
+.back .card-top {
+  padding: 20px;
+}
+
+.fa {
+  pointer-events: none;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

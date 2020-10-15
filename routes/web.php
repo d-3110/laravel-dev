@@ -47,6 +47,16 @@ Route::group(['middleware' => ['auth', 'can:all-user']], function () {
   Route::get('/holidays/app', 'PaidHolidayController@app')->name('holidays.app');
   Route::post('/holidays/app', 'PaidHolidayController@update')->name('holidays.update');
 
+  // チャット
+  // Route::get('/chat', 'ChatController@index')->name('chat.index');
+  Route::get('/chat/{group_id}', 'ChatController@show')->name('chat.show');
+  // チャットグループ一覧
+  Route::get('/groups', 'GroupController@index')->name('group.index');
+  // チャットグループ作成
+  Route::get('/groups/create', 'GroupController@create')->name('group.create');
+  Route::post('/groups/create', 'GroupController@store')->name('group.store');
+  // チャットグループ削除
+  Route::post('/groups/{id}/delete', 'GroupController@destroy')->name('group.destroy');
 });
 
 /****************************************************************************/

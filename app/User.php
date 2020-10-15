@@ -61,6 +61,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\PaidHoliday');
     }
+    // 多対多
+    public function Group()
+    {
+        return $this->belongsToMany('App\Group');
+    }
 
     public function getJWTIdentifier()
     {
@@ -82,21 +87,18 @@ class User extends Authenticatable implements JWTSubject
     //     'email_verified_at' => 'datetime',
     // ];
 
-    // セレクトボックス作成用(depts jobs)
-    public static function getArraySelectBox()
+    /* セレクトボックス作成用
+     * @param $model_name   モデル名 ex:'App\User'
+     * @param $key_id   idにしたい項目 デフォルトは'id'
+     */
+    public static function getArraySelectBox($model_name, $key_id = 'id')
     {
-        $depts = Dept::get(['id','name'])->toArray();
+        $arry = $model_name::get([$key_id, 'name'])->toArray();
         // formファザード用に配列を整形
-        foreach ($depts as $key => $dept) {
-            $depst_list[$dept['id']] = $dept['name'];
+        foreach ($arry as $key => $val) {
+          $res[$val[$key_id]] = $val['name'];
         }
-
-        $jobs = Job::get(['id','name'])->toArray();
-        // formファザード用に配列を整形
-        foreach ($jobs as $key => $job) {
-            $job_list[$job['id']] = $job['name'];
-        }
-        return [$depst_list, $job_list];
+        return $res;
     }
 
     /**

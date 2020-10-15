@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        list($depts, $jobs) = User::getArraySelectBox();
+        $jobs = User::getArraySelectBox('App\Job');
+        $depts = User::getArraySelectBox('App\Dept');
         return view('users.create', ['user' => $user, 'depts' => $depts, 'jobs' => $jobs]);
     }
 
@@ -68,7 +69,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         // return view('tasks/edit')->with('task', $task);
-        list($depts, $jobs) = User::getArraySelectBox();
+        $jobs = User::getArraySelectBox('App\Job');
+        $depts = User::getArraySelectBox('App\Dept');
         return view('users.edit', ['user' => $user, 'depts' => $depts, 'jobs' => $jobs]);
     }
 
