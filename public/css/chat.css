@@ -7,6 +7,7 @@
 
 .chat-card {
   height: 660px;
+  overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
@@ -23,7 +24,7 @@
 
 @media (max-width: 769px) {
   .chat-card {
-    height: 600px;
+    height: 520px;
   }
 
   .container {
