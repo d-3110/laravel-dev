@@ -44,6 +44,11 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        // すでにチャットをしている相手の場合チャット画面へ
+        $chatted_group_id = Group::haveChatted($request->user_id, $request->partner_user_id);
+        if ($chatted_group_id > 0) {
+            return redirect()->route('chat.show', ['group_id' => $chatted_group_id]);
+        }
         DB::beginTransaction();
         try{
 
@@ -70,7 +75,7 @@ class GroupController extends Controller
         }
         DB::commit();
 
-        return redirect()->route('group.index');
+        return redirect()->route('chat.show', ['group_id' => $group->id]);
     }
 
     /**

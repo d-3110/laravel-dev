@@ -42,4 +42,29 @@ class Group extends Model
 
         return true;
     }
+    /**
+     * 選択された相手とすでにチャットしているかを判定する
+     * @param  $user_id  [自分のuser_id]
+     * @param  $partner_user_id  [相手のuser_id]
+     * @return チャットをすでにしている相手の場合: 該当するgroup_idを返却
+     *         チャットをしたことがない相手の場合: 0を返却
+     */
+    public static function haveChatted($user_id, $partner_user_id) {
+        // すでにチャットしている相手かチェック
+        $user = User::find($user_id);
+        foreach ($user->group as $group) {
+            $group_ids[] = ['group_id' => $group->pivot->group_id]; // 参加しているgroup_idリスト
+        }
+        foreach ($group_ids as $id) {
+            foreach (Group::find($id['group_id'])->user as $user) {
+                $current = $user->pivot;
+                if ($current->user_id != $user_id &&       // 自分でない かつ
+                    $current->user_id == $partner_user_id  // 選択した相手である
+                ) {
+                    return $id['group_id'];
+                }
+            }
+        }
+        return 0;
+    }
 }

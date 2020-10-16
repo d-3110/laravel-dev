@@ -9,7 +9,14 @@
     transform: rotatey(180deg);
   }
 }
-
+.card-title {
+  font-size:24px;
+  margin: 0 0.5em 0.5em 0;
+}
+.card-text {
+  font-size: 18px;
+  margin-bottom: 0.3em;
+}
 .card {
   height: 100%;
   -webkit-transform-style: preserve-3d;

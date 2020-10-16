@@ -6,6 +6,9 @@
         <div v-if="loading" class="spinner-border text-primary profile_spiner " role="status">
           <span class="sr-only">Loading...</span>
         </div>
+        <div v-if="first">
+          <p>最初のメッセージを送信してください！</p>
+        </div>
       </div>
       <div class="d-flex flex-column mt-auto">
         <div v-for="m in messages" class="balloon">
@@ -14,11 +17,11 @@
           </div>
           <div v-if="m.user_id != user_id" class="chatting">
             <div class="says">
-              <p v-text="m.body"></p>
+              <p v-html="m.body"></p>
             </div>
           </div>
           <div v-else class="mycomment">
-              <p v-text="m.body"></p>
+              <p v-html="m.body"></p>
           </div>
         </div>
       </div>
@@ -39,13 +42,14 @@
       return {
         messages: '',
         message: '',
-        user_id: this.user_id,
+        first: false,
         loading: true,
       }
     },
     mounted: function () {
       this.getMessages()
-      Echo.channel('chat')
+      const group_id = this.group_id
+      Echo.private('chat.' + group_id)
         .listen('MessageCreated', (e) => {
             // 全メッセージを再読込
             this.getMessages();
@@ -58,7 +62,7 @@
     },
     methods: {
       send() {
-        // メッセージがからの場合ajaxしない
+        // メッセージが空の場合ajaxしない
         if (this.message === '') {
           return
         }
@@ -70,20 +74,23 @@
         axios.post('/api/chat', params).then(res => {
           // 成功したらメッセージクリア
           this.message = ''
+          this.first = false;
         });
       },
       getMessages() {
         axios.get('/api/chat/' + this.group_id).then(res => {
           this.messages = res.data
+          // 1度も会話していない場合
+          if (this.messages.length == 0) {
+            this.first = true;
+          }
           this.loading = false
-          this.scrollBottom();
         })
         .catch(err => {
         this.loading = false
         })
       },
       scrollToEnd() {
-        console.log('dfsfafad')
         var container = this.$el.querySelector("#chat")
         container.scrollTop = container.scrollHeight;
       }

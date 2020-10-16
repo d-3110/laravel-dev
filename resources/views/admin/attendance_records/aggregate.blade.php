@@ -33,7 +33,7 @@
     <tr class="table-success">
       <th>{{ __('ID') }}</th>
       <th>{{ __('NAME') }}</th>
-      <th>{{ __('WORIK ') }}</th>
+      <th>{{ __('WORK ') }}</th>
       <th></th>
     </tr>
   @foreach($users as $user)

@@ -15,9 +15,17 @@
                 <img :src="user.profile.img_file" alt="profile_img">
               </div>
               <div class="card-body">
-                <h5 class="card-title">{{ user.name }}</h5>
+                <h5 class="card-title">{{ user.profile.name }}</h5>
                 <p class="card-text">{{ user.dept.name }}</p>
                 <p class="card-text">{{ user.job.name }}</p>
+                <p class="card-text">
+                  <form :name='"chat_" + user.id' method="POST" action="/groups/create">
+                    <input type="hidden" name="_token" v-bind:value="csrf">
+                    <input type="hidden" name="user_id" :value="user_id">
+                    <input type="hidden" name="partner_user_id" :value="user.id">
+                    <a v-if="user.id != user_id" :href='"javascript:chat_" + user.id +".submit()"'>チャットする</a>
+                  </form>
+                </p>
                 <button @click="flip(index)" type="button" class="flipControl btn btn-primary flip_btn"><i class="fa fa-chevron-right"></i></button>
               </div>
             </div>
@@ -48,6 +56,7 @@ export default {
   components: {
       ProfileChart
   },
+  props:['csrf', 'user_id'],
   data() {
     return {
       users: [],

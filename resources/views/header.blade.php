@@ -1,6 +1,6 @@
 @section('header')
 <nav class="navbar navbar-inverse navbar-embossed navbar-expand-lg" role="navigation">
-  <a class="navbar-brand" href="#">Laravel APP!</a>
+  <a class="navbar-brand" href="/">Laravel APP!</a>
   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-01"></button>
   <div class="collapse navbar-collapse" id="navbar-collapse-01">
     <ul class="nav navbar-nav mr-auto">
@@ -10,6 +10,14 @@
       </li>
       <li class="nav-item">
         <a href="{{ url('mypage/') }}" class="nav-link px-3">マイページ</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">チャット</a>
+        <span class="dropdown-arrow"></span>
+        <ul class="dropdown-menu">
+          <li><a href="{{ url('groups/create/') }}">チャット開始</a></li>
+          <li><a href="{{ url('groups/') }}">参加一覧</a></li>
+        </ul>
       </li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">勤怠管理</a>

@@ -1937,13 +1937,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['group_id', 'user_id'],
   data: function data() {
     return {
       messages: '',
       message: '',
-      user_id: this.user_id,
+      first: false,
       loading: true
     };
   },
@@ -1951,7 +1954,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.getMessages();
-    Echo.channel('chat').listen('MessageCreated', function (e) {
+    var group_id = this.group_id;
+    Echo["private"]('chat.' + group_id).listen('MessageCreated', function (e) {
       // 全メッセージを再読込
       _this.getMessages();
     });
@@ -1965,7 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
     send: function send() {
       var _this2 = this;
 
-      // メッセージがからの場合ajaxしない
+      // メッセージが空の場合ajaxしない
       if (this.message === '') {
         return;
       }
@@ -1978,22 +1982,25 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/chat', params).then(function (res) {
         // 成功したらメッセージクリア
         _this2.message = '';
+        _this2.first = false;
       });
     },
     getMessages: function getMessages() {
       var _this3 = this;
 
       axios.get('/api/chat/' + this.group_id).then(function (res) {
-        _this3.messages = res.data;
-        _this3.loading = false;
+        _this3.messages = res.data; // 1度も会話していない場合
 
-        _this3.scrollBottom();
+        if (_this3.messages.length == 0) {
+          _this3.first = true;
+        }
+
+        _this3.loading = false;
       })["catch"](function (err) {
         _this3.loading = false;
       });
     },
     scrollToEnd: function scrollToEnd() {
-      console.log('dfsfafad');
       var container = this.$el.querySelector("#chat");
       container.scrollTop = container.scrollHeight;
     }
@@ -2566,6 +2573,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2573,6 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     ProfileChart: _ProfileChart__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  props: ['csrf', 'user_id'],
   data: function data() {
     return {
       users: [],
@@ -78196,6 +78212,12 @@ var render = function() {
               },
               [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
             )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.first
+          ? _c("div", [
+              _c("p", [_vm._v("最初のメッセージを送信してください！")])
+            ])
           : _vm._e()
       ]),
       _vm._v(" "),
@@ -78213,11 +78235,11 @@ var render = function() {
             m.user_id != _vm.user_id
               ? _c("div", { staticClass: "chatting" }, [
                   _c("div", { staticClass: "says" }, [
-                    _c("p", { domProps: { textContent: _vm._s(m.body) } })
+                    _c("p", { domProps: { innerHTML: _vm._s(m.body) } })
                   ])
                 ])
               : _c("div", { staticClass: "mycomment" }, [
-                  _c("p", { domProps: { textContent: _vm._s(m.body) } })
+                  _c("p", { domProps: { innerHTML: _vm._s(m.body) } })
                 ])
           ])
         }),
@@ -79003,7 +79025,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "card-body" }, [
                           _c("h5", { staticClass: "card-title" }, [
-                            _vm._v(_vm._s(user.name))
+                            _vm._v(_vm._s(user.profile.name))
                           ]),
                           _vm._v(" "),
                           _c("p", { staticClass: "card-text" }, [
@@ -79013,6 +79035,54 @@ var render = function() {
                           _c("p", { staticClass: "card-text" }, [
                             _vm._v(_vm._s(user.job.name))
                           ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "card-text" }),
+                          _c(
+                            "form",
+                            {
+                              attrs: {
+                                name: "chat_" + user.id,
+                                method: "POST",
+                                action: "/groups/create"
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: { type: "hidden", name: "_token" },
+                                domProps: { value: _vm.csrf }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: { type: "hidden", name: "user_id" },
+                                domProps: { value: _vm.user_id }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                attrs: {
+                                  type: "hidden",
+                                  name: "partner_user_id"
+                                },
+                                domProps: { value: user.id }
+                              }),
+                              _vm._v(" "),
+                              user.id != _vm.user_id
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href:
+                                          "javascript:chat_" +
+                                          user.id +
+                                          ".submit()"
+                                      }
+                                    },
+                                    [_vm._v("チャットする")]
+                                  )
+                                : _vm._e()
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p"),
                           _vm._v(" "),
                           _c(
                             "button",
@@ -91822,7 +91892,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************************************!*\
   !*** ./resources/js/components/ShowUsers.vue?vue&type=template&id=1cc945b0& ***!
   \******************************************************************************/
-/*! exports provided: render, staticRenderFns */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

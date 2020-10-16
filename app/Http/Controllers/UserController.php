@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
 use App\User;
 
 class UserController extends Controller
@@ -15,13 +16,15 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // 利用するときはEloquentモデルやクエリビルダーから、scope接頭語を外して呼び出す
-        $users = User::deptFilter(request('dept_id'))  // 部署で絞り込み
-                     ->jobFilter(request('job_id'))    // 職種で絞り込み
-                     ->searchFilter(request('keyword'))   // 検索ワードで絞り込み
-                     ->get();
-        return view('users.index', ['users' => $users,
-                                          'keyword' => request('keyword')
-                                          ]);
+        // $users = User::deptFilter(request('dept_id'))  // 部署で絞り込み
+        //              ->jobFilter(request('job_id'))    // 職種で絞り込み
+        //              ->searchFilter(request('keyword'))   // 検索ワードで絞り込み
+        //              ->get();
+        // return view('users.index', ['users' => $users,
+        //                                   'keyword' => request('keyword')
+        //                                   ]);
+        $user_id = Auth::id();
+        return view('users.index', compact('user_id'));
     }
 
     /**

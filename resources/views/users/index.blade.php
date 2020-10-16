@@ -15,7 +15,7 @@
 @section('content')
 @include('header')
 <div id="app" class="container">
-  <show-users v-bind:users="{{ $users }}"></show-users>
+  <show-users :csrf="{{json_encode(csrf_token())}}" :user_id="{{ $user_id }}"></show-users>
 </div>
 @include('script')
 @endsection
