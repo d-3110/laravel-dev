@@ -7,6 +7,12 @@
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
 }
 @media (max-width: 769px) {
   .chat-card {

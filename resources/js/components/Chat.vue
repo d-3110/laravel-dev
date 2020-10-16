@@ -1,6 +1,6 @@
 <template>
   <section class="chatWrap">
-    <div id="chat" class="card chat-card px-2">
+    <div id="chat" class="chat-card px-2">
       <!-- ロード画面 -->
       <div class="d-flex justify-content-center mt-auto">
         <div v-if="loading" class="spinner-border text-primary profile_spiner " role="status">
