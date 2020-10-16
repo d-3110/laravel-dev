@@ -8,7 +8,18 @@
 .chat-card {
   height: 660px;
   overflow-y: scroll;
-  position: relative;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+@media (max-width: 769px) {
+  .chat-card {
+    height: 600px;
+  }
+
+  .container {
+    padding: 0;
+  }
 }
 
 .message-area {
