@@ -1,3 +1,25 @@
+.card-content {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-item {
+  width: 33.33333333%;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .card-content {
+    width: 100%;
+    display: block;
+  }
+
+  .card-item {
+    width: 100%;
+  }
+}
+
 .flip {
   -webkit-perspective: 800;
   perspective: 800;
@@ -26,6 +48,14 @@
   -webkit-transition: 0.5s;
   transform-style: preserve-3d;
   transition: 0.5s;
+}
+
+.user-img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
 }
 
 .flip .card .face {

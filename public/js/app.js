@@ -2109,6 +2109,8 @@ __webpack_require__.r(__webpack_exports__);
         // 親コンポーネントの画像を変更
         // this.file_path = '/storage/profiles/' + this.user_id + '/' +this.img_file.name
         _this2.$parent.img_file = response.data.link;
+      })["catch"](function (err) {
+        _this2.$emit('ImgError', err);
       });
     }
   }
@@ -2509,6 +2511,14 @@ __webpack_require__.r(__webpack_exports__);
       this.req.personality_4 = this.profile.personality_4;
       this.req.personality_5 = this.profile.personality_5;
       this.req.personality_6 = this.profile.personality_6;
+    },
+    catchError: function catchError(e) {
+      console.log('!!');
+      this.errors = e.response.data.errors;
+      this.error_flg = true; // グラフの値を初回読み込み時の状態に戻す
+
+      this.cansel();
+      this.loading = false;
     }
   }
 });
@@ -78656,7 +78666,10 @@ var render = function() {
                       _vm._m(0)
                     ]),
                 _vm._v(" "),
-                _c("drop-img", { attrs: { user_id: _vm.user_id } }),
+                _c("drop-img", {
+                  attrs: { user_id: _vm.user_id },
+                  on: { ImgError: _vm.catchError }
+                }),
                 _vm._v(" "),
                 !_vm.edit_flg
                   ? _c("dl", [
@@ -78996,9 +79009,9 @@ var render = function() {
           )
         : _c(
             "div",
-            { staticClass: "row" },
+            { staticClass: "card-content" },
             _vm._l(_vm.users, function(user, index) {
-              return _c("div", { staticClass: "col-sm-4 h-auto" }, [
+              return _c("div", { staticClass: "card-item" }, [
                 _c("div", { staticClass: "flip" }, [
                   _c(
                     "div",
@@ -79014,8 +79027,9 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "face front" }, [
-                        _c("div", { staticClass: "card-top" }, [
+                        _c("div", { staticClass: "card-top mt-3" }, [
                           _c("img", {
+                            staticClass: "user-img",
                             attrs: {
                               src: user.profile.img_file,
                               alt: "profile_img"
@@ -79114,6 +79128,12 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("div", { staticClass: "card-body" }, [
+                          _c(
+                            "a",
+                            { attrs: { href: "users/profiles/" + user.id } },
+                            [_vm._v("もっと詳しく")]
+                          ),
+                          _vm._v(" "),
                           _c(
                             "button",
                             {

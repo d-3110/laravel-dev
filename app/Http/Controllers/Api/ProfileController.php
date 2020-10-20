@@ -81,6 +81,9 @@ class ProfileController extends Controller
      */
     public function fileUpload(Request $request, $id)
     {
+        $request->validate([
+            'file' => 'image|max:3000'
+        ]);
         $profile = Profile::find($id);
         $user_id = $profile->user_id;
         $directory = "/profiles/$user_id";

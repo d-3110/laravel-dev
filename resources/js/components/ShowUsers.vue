@@ -4,15 +4,15 @@
     <div v-if="loading" class="spinner-border text-primary profile_spiner" role="status">
       <span class="sr-only">Loading...</span>
     </div>
-    <div v-else class="row">
-      <div v-for="(user, index) in users"class="col-sm-4 h-auto">
+    <div v-else class="card-content">
+      <div v-for="(user, index) in users"class="card-item">
         <div class="flip">
           <div class="card" v-bind:class="{ flipped: isFlip[index]}">
             {{ isFlip.index }}
             <!-- おもて -->
             <div class="face front">
-              <div class="card-top">
-                <img :src="user.profile.img_file" alt="profile_img">
+              <div class="card-top mt-3">
+                <img :src="user.profile.img_file" alt="profile_img" class="user-img">
               </div>
               <div class="card-body">
                 <h5 class="card-title">{{ user.profile.name }}</h5>
@@ -36,7 +36,7 @@
                 <profile-chart :personality="user.profile"></profile-chart>
               </div>
               <div class="card-body">
-                <!-- <a :href='`/profiles/${user.id}`'>もっと詳しく</a> -->
+                <a :href='`users/profiles/${user.id}`'>もっと詳しく</a>
                 <button @click="flip(index)" type="button" class="flipControl btn btn-primary flip_btn"><i class="fa fa-chevron-left"></i></button>
               </div>
             </div>

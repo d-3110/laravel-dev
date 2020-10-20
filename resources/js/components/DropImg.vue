@@ -44,7 +44,7 @@ export default {
     data() {
         return {
             isDrag: null,
-            img_file: '',　// 画像ファイル
+            img_file: '', // 画像ファイル
             file_path: '', // 画像ファイルパス
             preview_img:'',
             up: false,
@@ -85,7 +85,10 @@ export default {
                 // 親コンポーネントの画像を変更
                 // this.file_path = '/storage/profiles/' + this.user_id + '/' +this.img_file.name
                 this.$parent.img_file = response.data.link
-            });
+            })
+            .catch(err => {
+                this.$emit('ImgError', err)
+            })
         }
     }
 }

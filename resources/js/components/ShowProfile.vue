@@ -34,7 +34,7 @@
           </div>
         </div>
         <!-- モーダル -->
-        <drop-img :user_id="user_id"></drop-img>
+        <drop-img :user_id="user_id" @ImgError="catchError"></drop-img>
 
         <!-- 左側通常 -->
         <dl v-if="!edit_flg">
@@ -115,7 +115,7 @@
         </div>
       </div>
     </form><!-- wrrap END -->
-    <!-- ボタンエリア　-->
+    <!-- ボタンエリア -->
     <div v-if="!edit_flg && !loading && is_mine" class="form-group btn_group">
       <button type="button" class="btn btn-primary edit_btn" @click="(edit_flg = true)">
         <i class="fa fa-pencil"></i>
@@ -222,6 +222,14 @@ export default {
       this.req.personality_4 = this.profile.personality_4
       this.req.personality_5 = this.profile.personality_5
       this.req.personality_6 = this.profile.personality_6
+    },
+    catchError(e) {
+      console.log('!!')
+      this.errors = e.response.data.errors;
+      this.error_flg = true
+      // グラフの値を初回読み込み時の状態に戻す
+      this.cansel()
+      this.loading = false
     }
   }
 }
